@@ -1,6 +1,6 @@
-import React from 'react';
-import meImage from './assets/me.png';
-import './App.css';
+import React from "react";
+import meImage from "./assets/me.png";
+import "./App.css";
 
 function App() {
   return (

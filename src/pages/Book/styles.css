@@ -1,0 +1,61 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: sans-serif;
+    background-color: powderblue;
+}
+
+h1 {
+    color: black;
+}
+
+/* Book */
+.book {
+    position: relative;
+    width: 350px;
+    height: 500px;
+    transition: transform 0.5s;
+}
+
+.book.open {
+    transform: translateX(50%);
+}
+
+.book.back-cover {
+    transform: translateX(100%);
+}
+
+/* Controller Buttons */
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.5s;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover i {
+    color: #636363;
+}
+
+i {
+    font-size: 50px;
+    color: gray;
+}
+
+#prev-btn.open {
+    transform: translateX(-180px);
+}
+
+#next-btn.open {
+    transform: translateX(180px);
+}
