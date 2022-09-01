@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import meImage from "./assets/me.png";
 import "./App.css";
 
@@ -6,7 +7,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={meImage} className="App-logo" alt="logo" />
+        <Link to="/book">
+          <img src={meImage} className="App-logo" alt="logo" />
+        </Link>
         <p>
           <code>Berdimyradov Kerim</code>
         </p>
