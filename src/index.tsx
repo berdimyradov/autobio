@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import Book from "./pages/Book";
+import Test from "./pages/Test";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
@@ -14,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/book" element={<Book />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/" element={<App />}></Route>
       </Routes>
     </BrowserRouter>

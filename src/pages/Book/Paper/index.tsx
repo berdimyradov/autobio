@@ -5,8 +5,8 @@ import "./styles.css";
 type Props = {
   flipped: boolean;
   zIndex: number;
-  frontComp?: React.ReactNode
-  backComp?: React.ReactNode
+  frontComp?: React.ReactNode;
+  backComp?: React.ReactNode;
 };
 
 export const Paper = (props: Props) => {
@@ -15,14 +15,10 @@ export const Paper = (props: Props) => {
   return (
     <div className={clsx("paper", flipped && "flipped")} style={{ zIndex }}>
       <div className="front">
-        <div className="front-content">
-          {frontComp}
-        </div>
+        <div className="front-content">{frontComp}</div>
       </div>
       <div className="back">
-        <div id="b1" className="back-content">
-          {backComp}
-        </div>
+        <div className="back-content">{backComp}</div>
       </div>
     </div>
   );
