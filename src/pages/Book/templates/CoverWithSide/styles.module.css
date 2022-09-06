@@ -1,14 +1,14 @@
-.contaier {
+.contaier, .contaier2 {
     z-index: 1;
     perspective: 3000px;
+    height: 100%;
+    width: 100%;
 }
 
 .wrapper {
     position: relative;
     display: block;
-    width: 400px;
-    height: 550px;
-    margin: 5% auto;
+    height: 100%;
     border-radius: 2px 4px 4px 2px;
     background: linear-gradient(45deg, #DAD5DC 0%, #f2ebf4 100%);
     font-family: acumin-pro, sans-serif;
@@ -19,12 +19,13 @@
     transition: transform .5s;
 }
 
-.wrapper:hover,
-.wrapper.hovered {
+.wrapper:hover {
     transform: rotate3d(0, 1, 0, 35deg);
 }
 
 .book {
+    height: 100%;
+    width: 100%;
     transform-style: preserve-3d;
     transform-origin: 0% 50%;
     transition: transform .5s;
@@ -48,31 +49,20 @@
 }
 
 .book>div {
-    width: 400px;
-    height: 550px;
     border-radius: 0 3px 3px 0;
     box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.cover {
+.content {
+    height: 100%;
+    width: 100%;
     background: linear-gradient(45deg, #DAD5DC 0%, #f2ebf4 100%);
 }
 
-.cover:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10px;
-    bottom: 0;
-    width: 3px;
-    background: rgba(0, 0, 0, 0.1);
-    box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
-}
-
 .side {
+    height: 100%;
     width: 40px;
     left: -20px;
-    height: 550px;
     background-color: rgba(232, 229, 234);
     transform: rotate3d(0, 1, 0, -90deg);
 }
@@ -90,11 +80,11 @@
 }
 
 .side h2 span:first-child {
-    font-weight: 400;
-    font-size: 13px;
-    padding-right: 20px;
+    padding-right: 80px;
+    font-family: acumin-pro, sans-serif;
 }
 
 .side h2 span:last-child {
-    font-family: acumin-pro, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
 }

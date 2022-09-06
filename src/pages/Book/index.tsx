@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import HTMLFlipBook from "react-pageflip";
-import { FrontCover } from "./templates/FrontCover";
+// import { FrontCover } from "./templates/FrontCover";
 import { BackCover } from "./templates/BackCover";
 import { BlankPage } from "./templates/BlankPage";
+import { CoverWithSide } from "./templates/CoverWithSide";
 import "./styles.css";
 
 function Book() {
@@ -53,7 +54,7 @@ function Book() {
 
   const renderedPageSides = useMemo(() => {
     return [
-      <FrontCover key="0" />,
+      <CoverWithSide key="0" />,
       ...pages.map((page, index, array) => {
         return (
           <BlankPage key={index + 1} pageNumber={index + 1}>
@@ -77,39 +78,30 @@ function Book() {
         </button>
       )} */}
 
-        {/* @ts-ignore */}
-        <HTMLFlipBook
-          className="book"
-          width={400}
-          height={550}
-          showCover={true}
-          // className={""}
-          // style={{
-          //   background: "yellow",
-          //   margin: "0 auto",
-          // }}
-          // startPage={0}
-          // size={"stretch"}
-          // minWidth={300}
-          // maxWidth={300}
-          // minHeight={500}
-          // maxHeight={500}
-          drawShadow={true}
-          flippingTime={1500}
-          // usePortrait={false}
-          // startZIndex={1}
-          // autoSize={true}
-          maxShadowOpacity={0.4}
-          // mobileScrollSupport={true}
-          // clickEventForward={true}
-          // useMouseEvents={false}
-          // swipeDistance={10}
-          showPageCorners={false}
-          // disableFlipByClick={false}
-          // onFlip={onFlip}
-        >
-          {renderedPageSides}
-        </HTMLFlipBook>
+      {/* @ts-ignore */}
+      <HTMLFlipBook
+        className="book"
+        width={400}
+        height={550}
+        showCover={true}
+        // startPage={0}
+        // size={"stretch"}
+        drawShadow={true}
+        flippingTime={1500}
+        // usePortrait={false}
+        // startZIndex={1}
+        // autoSize={true}
+        maxShadowOpacity={0.4}
+        // mobileScrollSupport={true}
+        // clickEventForward={true}
+        // useMouseEvents={false}
+        // swipeDistance={10}
+        showPageCorners={false}
+        // disableFlipByClick={false}
+        // onFlip={onFlip}
+      >
+        {renderedPageSides}
+      </HTMLFlipBook>
 
       {/* {currentLocation !== maxLocation && (
         <button
