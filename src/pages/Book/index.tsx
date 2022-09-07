@@ -3,7 +3,9 @@ import HTMLFlipBook from "react-pageflip";
 // import { FrontCover } from "./templates/FrontCover";
 import { BackCover } from "./templates/BackCover";
 import { BlankPage } from "./templates/BlankPage";
+import { BasePage } from "./templates/BasePage";
 import { CoverWithSide } from "./templates/CoverWithSide";
+import { NotebookPaper } from "./templates/NotebookPaper";
 import "./styles.css";
 
 function Book() {
@@ -29,37 +31,47 @@ function Book() {
         front: <h1>Front 5</h1>,
         back: <h1>Back 5</h1>,
       },
-      {
-        front: <h1>Front 6</h1>,
-        back: <h1>Back 5</h1>,
-      },
-      {
-        front: <h1>Front 7</h1>,
-        back: <h1>Back 7</h1>,
-      },
-      {
-        front: <h1>Front 8</h1>,
-        back: <h1>Back 8</h1>,
-      },
-      {
-        front: <h1>Front 9</h1>,
-        back: <h1>Back 9</h1>,
-      },
-      {
-        front: <h1>Front 10</h1>,
-        back: <h1>Back 10</h1>,
-      },
+      // {
+      //   front: <h1>Front 6</h1>,
+      //   back: <h1>Back 5</h1>,
+      // },
+      // {
+      //   front: <h1>Front 7</h1>,
+      //   back: <h1>Back 7</h1>,
+      // },
+      // {
+      //   front: <h1>Front 8</h1>,
+      //   back: <h1>Back 8</h1>,
+      // },
+      // {
+      //   front: <h1>Front 9</h1>,
+      //   back: <h1>Back 9</h1>,
+      // },
+      // {
+      //   front: <h1>Front 10</h1>,
+      //   back: <h1>Back 10</h1>,
+      // },
     ];
   }, []);
 
   const renderedPageSides = useMemo(() => {
     return [
       <CoverWithSide key="0" />,
+      <BlankPage key="blank1" color="#FBFBF8" />,
+
+      <BlankPage key="blank2" color="#FBFBF8" />,
+      <BlankPage key="blank3" color="#FBFBF8" />,
+
+      <NotebookPaper key="notebook1" />,
+      <NotebookPaper key="notebook2" />,
+
+      // <BlankPage key="blank1" color="#FBFBF8" />,
+      // <BlankPage key="blank1" color="#FBFBF8" />,
       ...pages.map((page, index, array) => {
         return (
-          <BlankPage key={index + 1} pageNumber={index + 1}>
-            <span>Imma blank page</span>
-          </BlankPage>
+          <BasePage key={index + 1} number={index + 1}>
+            <span>Base Page: #{index + 1}</span>
+          </BasePage>
         );
       }),
       <BackCover key="11" />,
@@ -84,10 +96,10 @@ function Book() {
         width={400}
         height={550}
         showCover={true}
-        // startPage={0}
+        startPage={3}
         // size={"stretch"}
         drawShadow={true}
-        flippingTime={1500}
+        flippingTime={1000}
         // usePortrait={false}
         // startZIndex={1}
         // autoSize={true}
