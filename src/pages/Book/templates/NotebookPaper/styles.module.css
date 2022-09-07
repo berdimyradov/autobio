@@ -39,6 +39,7 @@
     right: 10px;
     line-height: 25px;
     font-family: 'Indie Flower';
+    /* font-family: monospace; */
     overflow: hidden;
     outline: none;
 }

@@ -1,0 +1,78 @@
+:root {
+    --typewriterCharacters: 26;
+    --typewriterSpeed: 2.5s;
+    --fadeInDelay: 1.5s;
+    --fadeInUpSpeed: 2s;
+    --fadeOutDelay: 1.5s;
+    --fadeOutUpSpeed: 1s;
+}
+
+.container {
+    margin: 0;
+    font-family: monospace;
+    text-align: center;
+    animation: fadeOutUp var(--fadeOutUpSpeed) ease calc(var(--typewriterSpeed) + var(--fadeInDelay) + var(--fadeInUpSpeed) + var(--fadeOutDelay)) forwards;
+}
+
+.title {
+    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    position: relative;
+    width: max-content;
+}
+
+.title::before,
+.title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.title::before {
+    background: var(--bg-color);
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+.title::after {
+    width: 0.125em;
+    background: #000000;
+    animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards,
+        blink 750ms steps(var(--typewriterCharacters)) infinite;
+}
+
+.subtitle {
+    color: #000000b3;
+    font-size: 2rem;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(3rem);
+    animation: fadeInUp var(--fadeInUpSpeed) ease calc(var(--typewriterSpeed) + var(--fadeInDelay)) forwards;
+}
+
+@keyframes typewriter {
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes blink {
+    to {
+        background: transparent;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    to {
+        opacity: 0;
+        transform: translateY(-3rem);
+    }
+}

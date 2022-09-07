@@ -6,6 +6,7 @@ import { BlankPage } from "./templates/BlankPage";
 import { BasePage } from "./templates/BasePage";
 import { CoverWithSide } from "./templates/CoverWithSide";
 import { NotebookPaper } from "./templates/NotebookPaper";
+import { Greeting } from "./Greeting";
 import "./styles.css";
 
 function Book() {
@@ -80,6 +81,10 @@ function Book() {
 
   return (
     <div className="container">
+      <section id="greeting">
+        <Greeting />
+      </section>
+      {/* <Greeting /> */}
       {/* {currentLocation !== 1 && (
         <button
           id="prev-btn"
@@ -96,7 +101,7 @@ function Book() {
         width={400}
         height={550}
         showCover={true}
-        startPage={3}
+        startPage={0}
         // size={"stretch"}
         drawShadow={true}
         flippingTime={1000}

@@ -15,7 +15,7 @@ export const NotebookPaper = React.forwardRef<HTMLDivElement>((_, ref) => {
               Sapiente expedita in sed placeat vel.
             </div>
           </div>
-        <div className={styles.shadow}></div>
+          <div className={styles.shadow}></div>
         </div>
       </div>
     </BlankPage>
