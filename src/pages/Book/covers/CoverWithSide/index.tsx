@@ -1,12 +1,13 @@
 import React from "react";
 import { FrontCover } from "../FrontCover";
 import styles from "./styles.module.css";
+import clsx from "clsx";
 
 export const CoverWithSide = React.forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={ref}>
-      <div className={styles.contaier}>
-        <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={clsx(styles.wrapper, styles.animated)}>
           <div className={styles.book}>
             <div className={styles.content}>
               <FrontCover />

@@ -1,15 +1,26 @@
-import { useMemo } from "react";
+import { RefObject, useCallback, useMemo, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
+import { VaraType } from "vara";
 // import { FrontCover } from "./templates/FrontCover";
-import { BackCover } from "./templates/BackCover";
-import { BlankPage } from "./templates/BlankPage";
-import { BasePage } from "./templates/BasePage";
-import { CoverWithSide } from "./templates/CoverWithSide";
-import { NotebookPaper } from "./templates/NotebookPaper";
+import { BasePage } from "common/templates/BasePage";
+import { BlankPage } from "common/templates/BlankPage";
+import { HandwritePaper } from "common/templates/HandwritePaper";
+import { BackCover } from "pages/Book/covers/BackCover";
+import { CoverWithSide } from "pages/Book/covers/CoverWithSide";
+import { DedicationCover } from "./covers/DedicationCover";
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
+const lipsum = `
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+  voluptate, asperiores deleniti temporibus aliquam itaque
+  blanditiis libero quidem aspernatur, iure id, quam expedita rerum.
+  Sapiente expedita in sed placeat vel.
+`;
+
 function Book() {
+  const pageFlip = useRef(null);
+  const varaInstance = useRef<VaraType | null>(null);
   const pages = useMemo(() => {
     return [
       {
@@ -54,20 +65,48 @@ function Book() {
       // },
     ];
   }, []);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const onRefChange = useCallback((node: RefObject<VaraType>) => {
+    // console.log("Book:onChange", node);
+    varaInstance.current = node.current;
+    setTimeout(() => {
+      varaInstance?.current?.draw("dedication1");
+    }, 1500);
+  }, []);
 
   const renderedPageSides = useMemo(() => {
     return [
       <CoverWithSide key="0" />,
       <BlankPage key="blank1" color="#FBFBF8" />,
 
-      <BlankPage key="blank2" color="#FBFBF8" />,
+      <DedicationCover
+        key="dedication1"
+        onVaraRef={onRefChange}
+        isVisible={currentPage === 1}
+      />,
       <BlankPage key="blank3" color="#FBFBF8" />,
 
-      <NotebookPaper key="notebook1" />,
-      <NotebookPaper key="notebook2" />,
+      <HandwritePaper
+        key="notebook1"
+        id="notebook1"
+        texts={[
+          "foobar me",
+          "barme foo",
+          "another one",
+          "once upon a time",
+          "foobar me",
+          "barme foo",
+          "another one",
+          "once upon a time",
+          "foobar me",
+          "barme foo",
+          "another one",
+          "once upon a time",
+        ]}
+      />,
+      <HandwritePaper key="notebook2" id="notebook2" texts={[lipsum]} />,
 
-      // <BlankPage key="blank1" color="#FBFBF8" />,
-      // <BlankPage key="blank1" color="#FBFBF8" />,
       ...pages.map((page, index, array) => {
         return (
           <BasePage key={index + 1} number={index + 1}>
@@ -77,27 +116,23 @@ function Book() {
       }),
       <BackCover key="11" />,
     ];
-  }, [pages]);
+  }, [pages, currentPage]);
+
+  const onFlip = useCallback(({ data }: { data: number }) => {
+    setCurrentPage(data);
+    console.log("Book:OnFlip", data);
+  }, []);
 
   return (
     <div className="container">
       <section id="greeting">
         <Greeting />
       </section>
-      {/* <Greeting /> */}
-      {/* {currentLocation !== 1 && (
-        <button
-          id="prev-btn"
-          className={clsx(!displayedCover && "open")}
-          onClick={onPrev}
-        >
-          <FaArrowCircleLeft className="icon" />
-        </button>
-      )} */}
 
       {/* @ts-ignore */}
       <HTMLFlipBook
-        className="book"
+        ref={pageFlip}
+        className="book animated"
         width={400}
         height={550}
         showCover={true}
@@ -115,20 +150,10 @@ function Book() {
         // swipeDistance={10}
         showPageCorners={false}
         // disableFlipByClick={false}
-        // onFlip={onFlip}
+        onFlip={onFlip}
       >
         {renderedPageSides}
       </HTMLFlipBook>
-
-      {/* {currentLocation !== maxLocation && (
-        <button
-          id="next-btn"
-          className={clsx(!displayedCover && "open")}
-          onClick={onNext}
-        >
-          <FaArrowCircleRight className="icon" />
-        </button>
-      )} */}
     </div>
   );
 }

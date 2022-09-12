@@ -1,4 +1,4 @@
-.contaier, .contaier2 {
+.container {
     z-index: 1;
     perspective: 3000px;
     height: 100%;
@@ -21,6 +21,22 @@
 
 .wrapper:hover {
     transform: rotate3d(0, 1, 0, 35deg);
+}
+
+.animated {
+    animation: peekSide 3s ease 9.5s;
+}
+
+@keyframes peekSide {
+    0% {
+        transform: rotate3d(0, 0, 0, 0deg);
+    }
+    50% {
+        transform: rotate3d(0, 1, 0, 35deg);
+    }
+    100% {
+        transform: rotate3d(0, 0, 0, 0deg);
+    }
 }
 
 .book {

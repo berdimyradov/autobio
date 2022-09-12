@@ -1,0 +1,11 @@
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+.vara {
+    width: 100%;
+    position: absolute;
+    top: 14em;
+    left: 3em;
+}

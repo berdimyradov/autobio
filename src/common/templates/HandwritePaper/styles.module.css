@@ -1,0 +1,74 @@
+.container {
+    height: 100%;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    background: rgba(255, 0, 0, 0.4);
+}
+
+.blankPage:global(.--left) .container::before {
+    left: 45px;
+}
+
+.blankPage:global(.--right) .container::before {
+    right: 45px;
+}
+
+.paper {
+    height: calc(100% - 40px);
+    padding-top: 40px;
+    background: white;
+}
+
+.lines {
+    height: 100%;
+    background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+}
+
+.text {
+    position: relative;
+
+    top: 25px;
+    line-height: 25px;
+
+    overflow: hidden;
+    /* outline: none; */
+
+    max-height: calc(100% - 25px);
+    max-width: calc(100% - (45px + 10px * 2));
+
+    /* background-color: rgba(0, 86, 160, 0.225); */
+    /* border: 1px solid blue; */
+}
+
+.blankPage:global(.--left) .text {
+    left: 55px;
+    right: 10px;
+}
+
+.blankPage:global(.--right) .text {
+    right: 55px;
+    left: 10px;
+}
+
+.shadow {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.blankPage:global(.--left) .shadow {
+    border-right: 0;
+    box-shadow: inset -7px 0 30px -7px rgb(0 0 0 / 40%);
+}
+
+.blankPage:global(.--right) .shadow {
+    border-left: 0;
+    box-shadow: inset 7px -7px 30px -7px rgb(0 0 0 / 40%);
+}

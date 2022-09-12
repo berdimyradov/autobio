@@ -23,10 +23,11 @@
   align-items: center;
 }
 
-.book {
+.book.animated {
   opacity: 0;
   transform: translateY(5rem);
   animation: fadeInUp 1.5s linear 8s forwards;
+  /* animation: fadeInUp 0.5s linear 0s forwards; */
 }
 
 @keyframes fadeInUp {

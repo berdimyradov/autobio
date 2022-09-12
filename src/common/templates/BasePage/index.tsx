@@ -1,5 +1,5 @@
 import React from "react";
-import { BlankPage } from "pages/Book/templates/BlankPage";
+import { BlankPage } from "common/templates/BlankPage";
 import styles from "./styles.module.css";
 
 type Props = {
