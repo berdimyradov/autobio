@@ -4,8 +4,8 @@ import styles from "./styles.module.css";
 
 // NOTE: see: https://raw.githubusercontent.com/akzhy/Vara/master/src/vara.js
 const FONTS =
-  // "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Shadows-Into-Light/shadows-into-light.json";
-  "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Parisienne/Parisienne.json";
+  "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Shadows-Into-Light/shadows-into-light.json";
+  // "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Parisienne/Parisienne.json";
 
 const varaConfig: Partial<TextStep> = {
   fontSize: 18,

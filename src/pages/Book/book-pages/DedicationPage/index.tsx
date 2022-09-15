@@ -1,22 +1,26 @@
 import { VaraAdapter } from "adapters/VaraAdapter";
+import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import { BlankPage } from "common/templates/BlankPage";
+import { BookPageProps } from "pages/Book/book-pages";
 import React, { RefObject, useCallback, useRef } from "react";
 import { VaraType } from "vara";
 import styles from "./styles.module.css";
 
-type Props = {
-  onVaraRef: (ref: RefObject<VaraType>) => void;
-  isVisible: boolean;
-};
+const animationDuration = 1500;
 
-export const DedicationCover = React.forwardRef<HTMLDivElement, Props>(
+export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { onVaraRef, isVisible } = props;
+    const { isVisible, onAnimationFinished } = props;
     const onChange = useCallback((node: RefObject<VaraType>) => {
-      onVaraRef(node);
+      drawWorkaround(() => {
+        node?.current?.draw("dedication1", animationDuration);
+        setTimeout(() => {
+          onAnimationFinished();
+        }, animationDuration);
+      });
     }, []);
 
-    let isVaraAlreadyRendered = useRef<boolean>(false);
+    const isVaraAlreadyRendered = useRef<boolean>(false);
     if (isVisible) {
       isVaraAlreadyRendered.current = true;
     }
@@ -35,7 +39,6 @@ export const DedicationCover = React.forwardRef<HTMLDivElement, Props>(
                     fontSize: 18,
                     strokeWidth: 1.75,
                     letterSpacing: 3,
-                    duration: 3000,
                     autoAnimation: false,
                   },
                 ]}

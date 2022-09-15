@@ -1,26 +1,24 @@
-import { RefObject, useCallback, useMemo, useRef, useState } from "react";
-import HTMLFlipBook from "react-pageflip";
-import { VaraType } from "vara";
-// import { FrontCover } from "./templates/FrontCover";
 import { BasePage } from "common/templates/BasePage";
 import { BlankPage } from "common/templates/BlankPage";
-import { HandwritePaper } from "common/templates/HandwritePaper";
-import { BackCover } from "pages/Book/covers/BackCover";
-import { CoverWithSide } from "pages/Book/covers/CoverWithSide";
-import { DedicationCover } from "./covers/DedicationCover";
+// import { HandwritePaper } from "common/templates/HandwritePaper";
+import { useCallback, useMemo, useRef, useState } from "react";
+import HTMLFlipBook from "react-pageflip";
+import {
+  BackCover,
+  CoverWithSide,
+  DedicationPage,
+  DelayBetweenPageFlipping,
+} from "./book-pages";
+import { BioPageFront } from "./book-pages/BioPageFront";
+import { BioPageBack } from "./book-pages/BioPageBack";
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
-const lipsum = `
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-  voluptate, asperiores deleniti temporibus aliquam itaque
-  blanditiis libero quidem aspernatur, iure id, quam expedita rerum.
-  Sapiente expedita in sed placeat vel.
-`;
+const startFromPage = 0;
 
 function Book() {
-  const pageFlip = useRef(null);
-  const varaInstance = useRef<VaraType | null>(null);
+  const [isGreetingFinished, setIsGreetingFinished] = useState(false);
+  const flipBook = useRef<any>(null);
   const pages = useMemo(() => {
     return [
       {
@@ -65,47 +63,44 @@ function Book() {
       // },
     ];
   }, []);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(startFromPage);
 
-  const onRefChange = useCallback((node: RefObject<VaraType>) => {
-    // console.log("Book:onChange", node);
-    varaInstance.current = node.current;
+  const flipNext = () => {
+    console.log("Book:onPageAnimationFinished ", currentPage);
     setTimeout(() => {
-      varaInstance?.current?.draw("dedication1");
-    }, 1500);
-  }, []);
+      const controller = flipBook.current.pageFlip().flipController;
+      controller.flipNext();
+    }, DelayBetweenPageFlipping);
+  };
 
   const renderedPageSides = useMemo(() => {
     return [
-      <CoverWithSide key="0" />,
+      <CoverWithSide
+        key="0"
+        isVisible={currentPage === 0}
+        onAnimationFinished={flipNext}
+      />,
       <BlankPage key="blank1" color="#FBFBF8" />,
 
-      <DedicationCover
+      <DedicationPage
         key="dedication1"
-        onVaraRef={onRefChange}
         isVisible={currentPage === 1}
+        onAnimationFinished={flipNext}
       />,
       <BlankPage key="blank3" color="#FBFBF8" />,
 
-      <HandwritePaper
-        key="notebook1"
-        id="notebook1"
-        texts={[
-          "foobar me",
-          "barme foo",
-          "another one",
-          "once upon a time",
-          "foobar me",
-          "barme foo",
-          "another one",
-          "once upon a time",
-          "foobar me",
-          "barme foo",
-          "another one",
-          "once upon a time",
-        ]}
+      <BioPageFront
+        key="bio-front"
+        isVisible={currentPage === 3}
+        onAnimationFinished={flipNext}
       />,
-      <HandwritePaper key="notebook2" id="notebook2" texts={[lipsum]} />,
+      <BioPageBack
+        key="bio-back"
+        isVisible={currentPage === 5}
+        onAnimationFinished={() => {
+          console.log("BioPageBack:onAnimationFinished");
+        }}
+      />,
 
       ...pages.map((page, index, array) => {
         return (
@@ -116,44 +111,48 @@ function Book() {
       }),
       <BackCover key="11" />,
     ];
-  }, [pages, currentPage]);
+  }, [currentPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    setCurrentPage(data);
     console.log("Book:OnFlip", data);
+    setCurrentPage(data);
   }, []);
 
+  console.log("Book", { currentPage, isGreetingFinished });
   return (
     <div className="container">
-      <section id="greeting">
-        <Greeting />
-      </section>
-
-      {/* @ts-ignore */}
-      <HTMLFlipBook
-        ref={pageFlip}
-        className="book animated"
-        width={400}
-        height={550}
-        showCover={true}
-        startPage={0}
-        // size={"stretch"}
-        drawShadow={true}
-        flippingTime={1000}
-        // usePortrait={false}
-        // startZIndex={1}
-        // autoSize={true}
-        maxShadowOpacity={0.4}
-        // mobileScrollSupport={true}
-        // clickEventForward={true}
-        // useMouseEvents={false}
-        // swipeDistance={10}
-        showPageCorners={false}
-        // disableFlipByClick={false}
-        onFlip={onFlip}
-      >
-        {renderedPageSides}
-      </HTMLFlipBook>
+      {!isGreetingFinished ? (
+        <Greeting
+          speedMode={1}
+          onAnimationFinished={() => setIsGreetingFinished(true)}
+        />
+      ) : (
+        // @ts-ignore
+        <HTMLFlipBook
+          ref={flipBook}
+          className="book animated"
+          width={400}
+          height={550}
+          showCover={true}
+          startPage={startFromPage}
+          // size={"stretch"}
+          drawShadow={true}
+          flippingTime={1000}
+          // usePortrait={false}
+          // startZIndex={1}
+          // autoSize={true}
+          maxShadowOpacity={0.4}
+          // mobileScrollSupport={true}
+          // clickEventForward={true}
+          // useMouseEvents={false}
+          // swipeDistance={10}
+          showPageCorners={false}
+          // disableFlipByClick={false}
+          onFlip={onFlip}
+        >
+          {renderedPageSides}
+        </HTMLFlipBook>
+      )}
     </div>
   );
 }
