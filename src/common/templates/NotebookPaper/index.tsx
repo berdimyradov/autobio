@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles.module.css";
 
 type Props = {
-  children: any;
+  children?: JSX.Element;
 };
 
 export const NotebookPaper = React.forwardRef<HTMLDivElement, Props>(
@@ -13,9 +13,7 @@ export const NotebookPaper = React.forwardRef<HTMLDivElement, Props>(
       <BlankPage ref={ref} className={styles.blankPage}>
         <div className={styles.container}>
           <div className={styles.paper}>
-            <div className={styles.lines}>
-              {children && <div className={styles.text}>{children}</div>}
-            </div>
+            <div className={styles.lines}>{children}</div>
             <div className={styles.shadow}></div>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import { BasePage } from "common/templates/BasePage";
 import { BlankPage } from "common/templates/BlankPage";
-// import { HandwritePaper } from "common/templates/HandwritePaper";
 import { useCallback, useMemo, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import {

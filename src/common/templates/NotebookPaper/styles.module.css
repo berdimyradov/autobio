@@ -30,32 +30,6 @@
     background-image: repeating-linear-gradient(white 0px, white 24px, #4683b480 25px);
 }
 
-.text {
-    position: relative;
-
-    top: 25px;
-    line-height: 25px;
-
-    overflow: hidden;
-    /* outline: none; */
-
-    max-height: calc(100% - 25px);
-    max-width: calc(100% - (45px + 10px * 2));
-
-    /* background-color: rgba(0, 86, 160, 0.225); */
-    /* border: 1px solid blue; */
-}
-
-.blankPage:global(.--left) .text {
-    left: 55px;
-    right: 10px;
-}
-
-.blankPage:global(.--right) .text {
-    right: 55px;
-    left: 10px;
-}
-
 .shadow {
     position: absolute;
     top: 0;
