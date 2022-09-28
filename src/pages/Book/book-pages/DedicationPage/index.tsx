@@ -4,9 +4,10 @@ import { BlankPage } from "common/templates/BlankPage";
 import { BookPageProps } from "pages/Book/book-pages";
 import React, { RefObject, useCallback, useRef } from "react";
 import { VaraType } from "vara";
+import { animationSpeedMode } from "pages/Book/config";
 import styles from "./styles.module.css";
 
-const animationDuration = 1500;
+const animationDuration = 1.5 * 1000 * animationSpeedMode;
 
 export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {

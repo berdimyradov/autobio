@@ -1,18 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.38a0b63c.css",
-    "main.js": "/static/js/main.dbb64734.js",
+    "main.css": "/static/css/main.f2032426.css",
+    "main.js": "/static/js/main.ac6c01eb.js",
     "static/js/787.570898cd.chunk.js": "/static/js/787.570898cd.chunk.js",
+    "static/media/hasbik-champ.gif": "/static/media/hasbik-champ.3b7dfed1c13b62cf3beb.gif",
+    "static/media/hasbik-training.gif": "/static/media/hasbik-training.58848942f46e338930d8.gif",
     "static/media/hasbik-wave.gif": "/static/media/hasbik-wave.3b46d9436f63fdeebddc.gif",
+    "static/media/hasbik-phone.gif": "/static/media/hasbik-phone.3fde2c6fd9d0bd7bbef4.gif",
+    "static/media/hasbik-operator.gif": "/static/media/hasbik-operator.c13e9ccb095c752bfb43.gif",
+    "static/media/hasbik-money-1.gif": "/static/media/hasbik-money-1.8a3e8d35a06d47582cc0.gif",
     "static/media/hasbik-pizza.gif": "/static/media/hasbik-pizza.35b7234ad2f96cd3fe6e.gif",
     "static/media/me.png": "/static/media/me.2521c3b6a8ad2a613433.png",
     "index.html": "/index.html",
-    "main.38a0b63c.css.map": "/static/css/main.38a0b63c.css.map",
-    "main.dbb64734.js.map": "/static/js/main.dbb64734.js.map",
+    "main.f2032426.css.map": "/static/css/main.f2032426.css.map",
+    "main.ac6c01eb.js.map": "/static/js/main.ac6c01eb.js.map",
     "787.570898cd.chunk.js.map": "/static/js/787.570898cd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.38a0b63c.css",
-    "static/js/main.dbb64734.js"
+    "static/css/main.f2032426.css",
+    "static/js/main.ac6c01eb.js"
   ]
 }

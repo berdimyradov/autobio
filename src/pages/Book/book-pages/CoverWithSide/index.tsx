@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { BookPageProps, DelayBetweenPageFlipping } from "pages/Book/book-pages";
+import { BookPageProps } from "pages/Book/book-pages";
+import { delayBetweenPageFlipping } from "pages/Book/config";
 import React, { useEffect, useRef } from "react";
 import frontCoverStyles from "./front-cover.module.css";
 import styles from "./styles.module.css";
@@ -15,7 +16,7 @@ export const CoverWithSide = React.forwardRef<HTMLDivElement, BookPageProps>(
         timer = setTimeout(() => {
           onAnimationFinished();
           isAlreadyAnimated.current = true;
-        }, DelayBetweenPageFlipping + 500);
+        }, delayBetweenPageFlipping + 500);
       }
 
       return () => {

@@ -4,19 +4,25 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import {
   BackCover,
+  BioPageOneBack,
+  BioPageOneFront,
+  BioPageThreeBack,
+  BioPageThreeFront,
+  BioPageTwoBack,
+  BioPageTwoFront,
   CoverWithSide,
-  DedicationPage,
-  DelayBetweenPageFlipping,
+  DedicationPage, LanguagessPage, SkillsPage
 } from "./book-pages";
-import { BioPageFront } from "./book-pages/BioPageFront";
-import { BioPageBack } from "./book-pages/BioPageBack";
+import {
+  delayBetweenPageFlipping,
+  isGreetingEnabled,
+  startPage
+} from "./config";
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
-const startFromPage = 0;
-
 function Book() {
-  const [isGreetingFinished, setIsGreetingFinished] = useState(false);
+  const [isBookVisible, setIsBookVisible] = useState(!isGreetingEnabled);
   const flipBook = useRef<any>(null);
   const pages = useMemo(() => {
     return [
@@ -62,14 +68,16 @@ function Book() {
       // },
     ];
   }, []);
-  const [currentPage, setCurrentPage] = useState(startFromPage);
+  const [currentPage, setCurrentPage] = useState(startPage);
 
   const flipNext = () => {
     console.log("Book:onPageAnimationFinished ", currentPage);
-    setTimeout(() => {
-      const controller = flipBook.current.pageFlip().flipController;
-      controller.flipNext();
-    }, DelayBetweenPageFlipping);
+    if (isGreetingEnabled) {
+      setTimeout(() => {
+        const controller = flipBook.current.pageFlip().flipController;
+        controller.flipNext();
+      }, delayBetweenPageFlipping);
+    }
   };
 
   const renderedPageSides = useMemo(() => {
@@ -88,22 +96,59 @@ function Book() {
       />,
       <BlankPage key="blank3" color="#FBFBF8" />,
 
-      <BioPageFront
-        key="bio-front"
+      <BioPageOneFront
+        key="bio-one-front"
         isVisible={currentPage === 3}
         onAnimationFinished={flipNext}
       />,
-      <BioPageBack
-        key="bio-back"
+      <BioPageOneBack
+        key="bio-one-back"
         isVisible={currentPage === 5}
         onAnimationFinished={() => {
           console.log("BioPageBack:onAnimationFinished");
         }}
       />,
 
+      <BioPageTwoFront
+        key="bio-two-front"
+        isVisible={currentPage === 5}
+        onAnimationFinished={flipNext}
+      />,
+      <BioPageTwoBack
+        key="bio-two-back"
+        isVisible={currentPage === 7}
+        onAnimationFinished={() => {
+          console.log("BioPageTwoBack:onAnimationFinished");
+        }}
+      />,
+
+      <BioPageThreeFront
+        key="bio-three-front"
+        isVisible={currentPage === 7}
+        onAnimationFinished={flipNext}
+      />,
+      <BioPageThreeBack
+        key="bio-three-back"
+        isVisible={currentPage === 9}
+        onAnimationFinished={() => {
+          console.log("BioPageTwoBack:onAnimationFinished");
+        }}
+      />,
+
+      <SkillsPage
+        key="skills-front"
+        isVisible={currentPage === 9}
+        onAnimationFinished={flipNext}
+      />,
+      <LanguagessPage
+        key="languages"
+        isVisible={currentPage === 11}
+        onAnimationFinished={flipNext}
+      />,
+
       ...pages.map((page, index, array) => {
         return (
-          <BasePage key={index + 1} number={index + 1}>
+          <BasePage key={index + 3} number={index + 3}>
             <span>Base Page: #{index + 1}</span>
           </BasePage>
         );
@@ -117,15 +162,10 @@ function Book() {
     setCurrentPage(data);
   }, []);
 
-  console.log("Book", { currentPage, isGreetingFinished });
+  console.log("Book", { currentPage, isGreetingEnabled });
   return (
     <div className="container">
-      {!isGreetingFinished ? (
-        <Greeting
-          speedMode={1}
-          onAnimationFinished={() => setIsGreetingFinished(true)}
-        />
-      ) : (
+      {isBookVisible ? (
         // @ts-ignore
         <HTMLFlipBook
           ref={flipBook}
@@ -133,7 +173,7 @@ function Book() {
           width={400}
           height={550}
           showCover={true}
-          startPage={startFromPage}
+          startPage={startPage}
           // size={"stretch"}
           drawShadow={true}
           flippingTime={1000}
@@ -151,6 +191,11 @@ function Book() {
         >
           {renderedPageSides}
         </HTMLFlipBook>
+      ) : (
+        <Greeting
+          speedMode={1}
+          onAnimationFinished={() => setIsBookVisible(true)}
+        />
       )}
     </div>
   );
