@@ -18,7 +18,7 @@ export const BioPageThreeFront = React.forwardRef<
   HTMLDivElement,
   BookPageProps
 >((props, ref) => {
-  const { isVisible, onAnimationFinished } = props;
+  const { isFocused, onAnimationFinished } = props;
   const textSteps: TextStep[] = [{ id, text, y: 150 }];
   const config: TextProperties = {
     fontSize: 12,
@@ -26,19 +26,19 @@ export const BioPageThreeFront = React.forwardRef<
     letterSpacing: 1.5,
     autoAnimation: false,
   };
-  console.log("BioPageTwoFront:props:", props);
 
   const onChange = useCallback((node: RefObject<VaraType>) => {
     drawWorkaround(() => {
       node?.current?.draw(id, animationDuration);
       setTimeout(() => {
+        console.log("BioPageThreeFront:onAnimationFinished");
         onAnimationFinished && onAnimationFinished();
       }, animationDuration);
     });
   }, []);
 
   const isVaraAlreadyRendered = useRef<boolean>(false);
-  if (isVisible) {
+  if (isFocused) {
     isVaraAlreadyRendered.current = true;
   }
 

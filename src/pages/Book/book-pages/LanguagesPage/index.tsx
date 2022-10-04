@@ -1,7 +1,7 @@
-import { Crossword } from "common/components/Crossword";
+import { Crossword, CrosswordMode } from "common/components/Crossword";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 
 // prettier-ignore
@@ -36,13 +36,35 @@ const delays = [
   0, 0, 14, 0, 0, 21, 0,
 ];
 
-export const LanguagessPage = React.forwardRef<HTMLDivElement, BookPageProps>(
+const cardsDisplayed = Math.max(...delays);
+
+export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
+    const { isFocused } = props;
+    const mode = useRef<CrosswordMode>("animated");
+
+    useEffect(() => {
+      let timer: NodeJS.Timer;
+      if (isFocused && mode.current !== "shown") {
+        timer = setTimeout(() => {
+          mode.current = "shown";
+        }, cardsDisplayed * 300);
+      }
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [isFocused]);
+
     return (
       <BasePage ref={ref} number={2}>
         <div className={styles.container}>
           <h3>Languages</h3>
-          <Crossword characters={characters} labels={labels} delays={delays} />
+          <Crossword
+            characters={characters}
+            labels={labels}
+            delays={delays}
+            mode={mode.current}
+          />
         </div>
       </BasePage>
     );

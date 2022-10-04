@@ -11,18 +11,19 @@ const animationDuration = 1.5 * 1000 * animationSpeedMode;
 
 export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const onChange = useCallback((node: RefObject<VaraType>) => {
       drawWorkaround(() => {
         node?.current?.draw("dedication1", animationDuration);
         setTimeout(() => {
-          onAnimationFinished();
+          console.log("DedicationPage:onAnimationFinished");
+          onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 

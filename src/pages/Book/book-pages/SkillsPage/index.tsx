@@ -1,8 +1,8 @@
-import { Crossword } from "common/components/Crossword";
+import { Crossword, CrosswordMode } from "common/components/Crossword";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
 import { delayBetweenPageFlipping } from "pages/Book/config";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.css";
 
 // prettier-ignore
@@ -50,56 +50,47 @@ const delays = [
   0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 37, 38, 21, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
-// const skills = [
-//   "React",
-//   "Typescript",
-//   "Redux",
-//   "App Store",
-//   "Google Play",
-//   "Node.js",
-//   "WebSocket",
-//   "NPM",
-//   "Yarn",
-//   "Webpack",
-//   "Git",
-//   "SVN",
-//   "MySQL",
-//   "MongoDB",
-//   "WebStorm",
-//   "DataGrip",
-//   "VS Code",
-//   "Slack",
-//   "Figma",
-//   "Amplitude",
-//   "Jira",
-//   "Confluence",
-//   "Trello",
-//   "WaterFlow",
-//   "Kanban",
-//   "Scrum",
-// ];
+
+const cardsDisplayed = Math.max(...delays);
 
 export const SkillsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
-    useEffect(() => {
-      let timer: NodeJS.Timeout;
-      // if (isVisible) {
-      timer = setTimeout(() => {
-        onAnimationFinished();
-      }, 12000 + delayBetweenPageFlipping + 500);
-      // }
+    const { isFocused, onAnimationFinished } = props;
+    const modeRef = useRef<CrosswordMode>("hidden");
+    const [mode, setMode] = useState<CrosswordMode>("hidden");
 
+    useEffect(() => {
+      let timer: NodeJS.Timer;
+      let flipTimer: NodeJS.Timer;
+      if (isFocused && modeRef.current !== "shown") {
+        modeRef.current = "animated";
+        setMode("animated");
+        timer = setTimeout(() => {
+          modeRef.current = "shown";
+          setMode("shown");
+        }, cardsDisplayed * 300);
+      }
+      if (isFocused && modeRef.current === "shown") {
+        flipTimer = setTimeout(() => {
+          onAnimationFinished && onAnimationFinished();
+        }, delayBetweenPageFlipping);
+      }
       return () => {
         clearTimeout(timer);
+        clearTimeout(flipTimer);
       };
-    }, []);
+    }, [isFocused, modeRef.current]);
 
     return (
       <BasePage ref={ref} number={1}>
         <div className={styles.container}>
           <h3>Technical Skills</h3>
-          <Crossword characters={characters} labels={labels} delays={delays} />
+          <Crossword
+            characters={characters}
+            labels={labels}
+            delays={delays}
+            mode={mode}
+          />
         </div>
       </BasePage>
     );

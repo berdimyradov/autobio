@@ -1,7 +1,7 @@
 export interface FiniteAnimation {
-  onAnimationFinished: () => void;
+  onAnimationFinished?: () => void;
 }
 
 export type BookPageProps = {
-  isVisible: boolean;
+  isFocused: boolean;
 } & FiniteAnimation;

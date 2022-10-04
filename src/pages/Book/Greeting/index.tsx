@@ -43,7 +43,8 @@ export const Greeting = (props: Props) => {
     }
 
     const timer = setTimeout(() => {
-      onAnimationFinished();
+      console.log("Greeting:onAnimationFinished");
+      onAnimationFinished && onAnimationFinished();
     }, animationDuration * 1000);
 
     return () => {

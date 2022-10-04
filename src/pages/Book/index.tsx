@@ -11,12 +11,15 @@ import {
   BioPageTwoBack,
   BioPageTwoFront,
   CoverWithSide,
-  DedicationPage, LanguagessPage, SkillsPage
+  DedicationPage,
+  LanguagesPage,
+  SkillsPage,
 } from "./book-pages";
 import {
   delayBetweenPageFlipping,
+  greetingSpeedMode,
   isGreetingEnabled,
-  startPage
+  startPage,
 } from "./config";
 import { Greeting } from "./Greeting";
 import "./styles.css";
@@ -42,10 +45,10 @@ function Book() {
         front: <h1>Front 4</h1>,
         back: <h1>Back 4</h1>,
       },
-      {
-        front: <h1>Front 5</h1>,
-        back: <h1>Back 5</h1>,
-      },
+      // {
+      //   front: <h1>Front 5</h1>,
+      //   back: <h1>Back 5</h1>,
+      // },
       // {
       //   front: <h1>Front 6</h1>,
       //   back: <h1>Back 5</h1>,
@@ -69,9 +72,10 @@ function Book() {
     ];
   }, []);
   const [currentPage, setCurrentPage] = useState(startPage);
+  const [focusPage, setFocusPage] = useState(0);
 
   const flipNext = () => {
-    console.log("Book:onPageAnimationFinished ", currentPage);
+    console.log("Book:onPageAnimationFinished", currentPage);
     if (isGreetingEnabled) {
       setTimeout(() => {
         const controller = flipBook.current.pageFlip().flipController;
@@ -84,67 +88,60 @@ function Book() {
     return [
       <CoverWithSide
         key="0"
-        isVisible={currentPage === 0}
+        isFocused={currentPage === 0}
         onAnimationFinished={flipNext}
       />,
-      <BlankPage key="blank1" color="#FBFBF8" />,
+      <BlankPage key="blank1" />,
 
       <DedicationPage
         key="dedication1"
-        isVisible={currentPage === 1}
+        isFocused={currentPage === 1}
         onAnimationFinished={flipNext}
       />,
-      <BlankPage key="blank3" color="#FBFBF8" />,
+      <BlankPage key="blank3" />,
 
       <BioPageOneFront
         key="bio-one-front"
-        isVisible={currentPage === 3}
+        isFocused={currentPage === 3}
         onAnimationFinished={flipNext}
       />,
       <BioPageOneBack
         key="bio-one-back"
-        isVisible={currentPage === 5}
-        onAnimationFinished={() => {
-          console.log("BioPageBack:onAnimationFinished");
-        }}
+        isFocused={currentPage === 5}
+        onAnimationFinished={() => setFocusPage(6)}
       />,
 
       <BioPageTwoFront
         key="bio-two-front"
-        isVisible={currentPage === 5}
+        isFocused={focusPage === 6}
         onAnimationFinished={flipNext}
       />,
       <BioPageTwoBack
         key="bio-two-back"
-        isVisible={currentPage === 7}
-        onAnimationFinished={() => {
-          console.log("BioPageTwoBack:onAnimationFinished");
-        }}
+        isFocused={currentPage === 7}
+        onAnimationFinished={() => setFocusPage(7)}
       />,
 
       <BioPageThreeFront
         key="bio-three-front"
-        isVisible={currentPage === 7}
+        isFocused={focusPage === 7}
         onAnimationFinished={flipNext}
       />,
       <BioPageThreeBack
         key="bio-three-back"
-        isVisible={currentPage === 9}
+        isFocused={currentPage === 9}
         onAnimationFinished={() => {
-          console.log("BioPageTwoBack:onAnimationFinished");
+          console.log("Crossword:onAnimationFinished", 9);
+          setFocusPage(9);
         }}
       />,
 
       <SkillsPage
         key="skills-front"
-        isVisible={currentPage === 9}
+        isFocused={focusPage === 9}
         onAnimationFinished={flipNext}
       />,
-      <LanguagessPage
-        key="languages"
-        isVisible={currentPage === 11}
-        onAnimationFinished={flipNext}
-      />,
+      <LanguagesPage key="languages" isFocused={currentPage === 11} />,
 
       ...pages.map((page, index, array) => {
         return (
@@ -153,16 +150,17 @@ function Book() {
           </BasePage>
         );
       }),
+
+      <BlankPage key="blank2" />,
       <BackCover key="11" />,
     ];
-  }, [currentPage]);
+  }, [currentPage, focusPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    console.log("Book:OnFlip", data);
     setCurrentPage(data);
   }, []);
 
-  console.log("Book", { currentPage, isGreetingEnabled });
+  console.log("Book", { currentPage, focusPage });
   return (
     <div className="container">
       {isBookVisible ? (
@@ -193,7 +191,7 @@ function Book() {
         </HTMLFlipBook>
       ) : (
         <Greeting
-          speedMode={1}
+          speedMode={greetingSpeedMode}
           onAnimationFinished={() => setIsBookVisible(true)}
         />
       )}

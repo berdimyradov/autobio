@@ -16,7 +16,8 @@ const text = `Later in 2010 when I was 18 I enrolled in Baranovichi State Univer
 
 export const BioPageTwoFront = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
+    console.log('BioPageTwoFront:props', props)
     const textSteps: TextStep[] = [{ id, text, y: 75 }];
     const config: TextProperties = {
       fontSize: 12,
@@ -24,19 +25,19 @@ export const BioPageTwoFront = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
-    console.log("BioPageTwoFront:props:", props);
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {
+          console.log("BioPageTwoFront:onAnimationFinished");
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 

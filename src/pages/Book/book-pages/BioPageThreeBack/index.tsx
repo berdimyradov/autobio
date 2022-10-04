@@ -17,7 +17,7 @@ const text = `${amountOfyears} years since passed and here you are about to lear
 
 export const BioPageThreeBack = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const textSteps: TextStep[] = [{ id, text, y: 175, x: 55 }];
     const config: TextProperties = {
       fontSize: 12,
@@ -25,20 +25,20 @@ export const BioPageThreeBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
-    console.log("BioPageBack:props:", props);
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
       console.log("BioPageBack:onChange", node.current);
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {
+          console.log('BioPageThreeBack:onAnimationFinished');
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 

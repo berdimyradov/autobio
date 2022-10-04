@@ -7,14 +7,15 @@ import styles from "./styles.module.css";
 
 export const CoverWithSide = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const isAlreadyAnimated = useRef<boolean>(false);
 
     useEffect(() => {
       let timer: NodeJS.Timeout;
-      if (isVisible && !isAlreadyAnimated.current) {
+      if (isFocused && !isAlreadyAnimated.current) {
         timer = setTimeout(() => {
-          onAnimationFinished();
+          console.log("CoverWithSide:onAnimationFinished");
+          onAnimationFinished && onAnimationFinished();
           isAlreadyAnimated.current = true;
         }, delayBetweenPageFlipping + 500);
       }

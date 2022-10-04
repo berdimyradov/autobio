@@ -1,26 +1,17 @@
 .container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .gif {
-    position: absolute;
-    height: 105px;
-    left: 75px;
-    top: 25px;
-    opacity: 0;
-    transform: rotate(15deg) scale(0.25);
-    animation: fadeInGif 3s ease-in-out 1s forwards;
+  position: absolute;
+  height: 105px;
+  left: 75px;
+  top: 25px;
+  transform: rotate(-15deg) scale(1);
 }
 
 .gif img {
-    height: 100%;
-    border-radius: 25px;
-}
-
-@keyframes fadeInGif {
-    to {
-        opacity: 1;
-        transform: rotate(-15deg) scale(1);
-    }
+  height: 100%;
+  border-radius: 25px;
 }

@@ -14,7 +14,7 @@ const text = `In 2008 at the age of 15 I got a scholarship to study abroad in US
 
 export const BioPageOneBack = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const textSteps: TextStep[] = [{ id, text, y: 225, x: 55 }];
     const config: TextProperties = {
       fontSize: 12,
@@ -22,20 +22,19 @@ export const BioPageOneBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
-    console.log("BioPageBack:props:", props);
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
-      console.log("BioPageBack:onChange", node.current);
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {
+          console.log('BioPageOneBack:onAnimationFinished');
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 

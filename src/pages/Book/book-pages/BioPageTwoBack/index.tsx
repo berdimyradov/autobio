@@ -14,7 +14,7 @@ const text = `After graduating I enrolled in Belarusian State University of Info
 
 export const BioPageTwoBack = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const textSteps: TextStep[] = [{ id, text, y: 150, x: 55 }];
     const config: TextProperties = {
       fontSize: 12,
@@ -22,7 +22,6 @@ export const BioPageTwoBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
-    console.log("BioPageBack:props:", props);
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
       console.log("BioPageBack:onChange", node.current);
@@ -35,7 +34,7 @@ export const BioPageTwoBack = React.forwardRef<HTMLDivElement, BookPageProps>(
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 

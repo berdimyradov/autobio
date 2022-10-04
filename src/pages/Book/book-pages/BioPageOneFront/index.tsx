@@ -4,7 +4,7 @@ import hasbikWave from "assets/gifs/hasbik-wave.gif";
 import { NotebookPaper } from "common/templates/NotebookPaper";
 import { calculateAge } from "common/utils";
 import { BookPageProps } from "pages/Book/book-pages";
-import React, { RefObject, useCallback, useRef } from "react";
+import React, { RefObject, useCallback, useMemo, useRef } from "react";
 import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "./styles.module.css";
@@ -16,7 +16,7 @@ const text = `Hello my dear reader. Let's start our journey and introduce you my
 
 export const BioPageOneFront = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isVisible, onAnimationFinished } = props;
+    const { isFocused, onAnimationFinished } = props;
     const textSteps: TextStep[] = [{ id, text, y: 75 }];
     const config: TextProperties = {
       fontSize: 12,
@@ -24,7 +24,6 @@ export const BioPageOneFront = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
-    console.log("BioPageFront:props:", props);
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
       drawWorkaround(() => {
@@ -36,7 +35,7 @@ export const BioPageOneFront = React.forwardRef<HTMLDivElement, BookPageProps>(
     }, []);
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
-    if (isVisible) {
+    if (isFocused) {
       isVaraAlreadyRendered.current = true;
     }
 
