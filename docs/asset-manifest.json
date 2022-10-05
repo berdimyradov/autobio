@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2f06156a.css",
-    "main.js": "/static/js/main.bc9b5a91.js",
+    "main.css": "/static/css/main.5dffa111.css",
+    "main.js": "/static/js/main.3818c1c1.js",
     "static/js/787.570898cd.chunk.js": "/static/js/787.570898cd.chunk.js",
     "static/media/hasbik-champ.gif": "/static/media/hasbik-champ.3b7dfed1c13b62cf3beb.gif",
     "static/media/hasbik-training.gif": "/static/media/hasbik-training.58848942f46e338930d8.gif",
@@ -12,12 +12,12 @@
     "static/media/hasbik-pizza.gif": "/static/media/hasbik-pizza.35b7234ad2f96cd3fe6e.gif",
     "static/media/me.png": "/static/media/me.2521c3b6a8ad2a613433.png",
     "index.html": "/index.html",
-    "main.2f06156a.css.map": "/static/css/main.2f06156a.css.map",
-    "main.bc9b5a91.js.map": "/static/js/main.bc9b5a91.js.map",
+    "main.5dffa111.css.map": "/static/css/main.5dffa111.css.map",
+    "main.3818c1c1.js.map": "/static/js/main.3818c1c1.js.map",
     "787.570898cd.chunk.js.map": "/static/js/787.570898cd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2f06156a.css",
-    "static/js/main.bc9b5a91.js"
+    "static/css/main.5dffa111.css",
+    "static/js/main.3818c1c1.js"
   ]
 }

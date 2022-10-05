@@ -1,0 +1,38 @@
+.projectTable {
+  /* border: 1px solid black; */
+  font-size: 14px;
+}
+
+.projectTable thead {
+  background-color: #cccccc;
+}
+
+.projectTable tr > * {
+  padding-block-end: 3px;
+}
+
+.projectTable tr > *:first-child {
+  text-align: right;
+  font-weight: 700;
+}
+
+.projectTable tbody {
+  padding-inline-start: 7px;
+  font-size: 13px;
+}
+
+.projectTable th,
+.projectTable td {
+  /* border: 0.1px solid #000000; */
+}
+
+.projectTable ul {
+  margin: 0;
+  padding-inline-start: 10px;
+  text-indent: 0;
+  list-style-type: "\01F3C6";
+}
+
+.projectTable li {
+  padding-inline-start: 3px;
+}

@@ -12,6 +12,10 @@ import {
   BioPageTwoFront,
   CoverWithSide,
   DedicationPage,
+  ISolutionsPage,
+  ElinextsPage,
+  CiklumsPage,
+  SocialDiscoveryVenturesPage,
   LanguagesPage,
   SkillsPage,
 } from "./book-pages";
@@ -27,50 +31,6 @@ import "./styles.css";
 function Book() {
   const [isBookVisible, setIsBookVisible] = useState(!isGreetingEnabled);
   const flipBook = useRef<any>(null);
-  const pages = useMemo(() => {
-    return [
-      {
-        front: <h1>Front 1</h1>,
-        back: <h1>Back 1</h1>,
-      },
-      {
-        front: <h1>Front 2</h1>,
-        back: <h1>Back 2</h1>,
-      },
-      {
-        front: <h1>Front 3</h1>,
-        back: <h1>Back 3</h1>,
-      },
-      {
-        front: <h1>Front 4</h1>,
-        back: <h1>Back 4</h1>,
-      },
-      // {
-      //   front: <h1>Front 5</h1>,
-      //   back: <h1>Back 5</h1>,
-      // },
-      // {
-      //   front: <h1>Front 6</h1>,
-      //   back: <h1>Back 5</h1>,
-      // },
-      // {
-      //   front: <h1>Front 7</h1>,
-      //   back: <h1>Back 7</h1>,
-      // },
-      // {
-      //   front: <h1>Front 8</h1>,
-      //   back: <h1>Back 8</h1>,
-      // },
-      // {
-      //   front: <h1>Front 9</h1>,
-      //   back: <h1>Back 9</h1>,
-      // },
-      // {
-      //   front: <h1>Front 10</h1>,
-      //   back: <h1>Back 10</h1>,
-      // },
-    ];
-  }, []);
   const [currentPage, setCurrentPage] = useState(startPage);
   const [focusPage, setFocusPage] = useState(0);
 
@@ -143,13 +103,11 @@ function Book() {
       />,
       <LanguagesPage key="languages" isFocused={currentPage === 11} />,
 
-      ...pages.map((page, index, array) => {
-        return (
-          <BasePage key={index + 3} number={index + 3}>
-            <span>Base Page: #{index + 1}</span>
-          </BasePage>
-        );
-      }),
+      <ISolutionsPage key="isolutions" isFocused={true} />,
+      <ElinextsPage key="elinext" isFocused={true} />,
+
+      <CiklumsPage key="ciklum" isFocused={true} />,
+      <SocialDiscoveryVenturesPage key="sdv" isFocused={true} />,
 
       <BlankPage key="blank2" />,
       <BackCover key="11" />,
