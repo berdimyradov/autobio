@@ -1,56 +1,58 @@
 import { BasePage } from "common/templates/BasePage";
+import { ProjectsPage } from "common/templates/ProjectsPage";
 import { BookPageProps } from "pages/Book/book-pages";
-import styles from "pages/Book/book-pages/companies/projectTable.module.css";
-import React from "react";
+import { Project } from "common/templates/ProjectsPage/types";
+import React, { useCallback, useState } from "react";
 
-export const SocialDiscoveryVenturesPage = React.forwardRef<
-  HTMLDivElement,
-  BookPageProps
->((_, ref) => {
-  return (
-    <BasePage ref={ref} number={4}>
-      <div className={styles.container}>
-        <h4>Social Discovery Venture, March 2020 - July 2022</h4>
-        <table className={styles.projectTable}>
-          <thead>
-            <tr>
-              <th>Project:</th>
-              <th>Dating.com</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Environment:</td>
-              <td>JavaScript, TypeScript, React, ReactNative, Jenkins</td>
-            </tr>
-            <tr>
-              <td>Role:</td>
-              <td>Frontend Developer (Web + Mobile)</td>
-            </tr>
-            <tr>
-              <td>Project description:</td>
-              <td>
-                Dating.com is a dating platform designed for a wide range of
-                users, regardless of gender, preferences and values
-              </td>
-            </tr>
-            <tr>
-              <td>Achievements:</td>
-              <td>
-                <ul>
-                  <li>
-                    Implemented and supported business features in client apps
-                  </li>
-                  <li>
-                    Refactored project to be able launching multiple look-a-like
-                    apps
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </BasePage>
-  );
-});
+const projects: Project[] = [
+  {
+    title: "Dating.com",
+    env: "JavaScript, TypeScript, React, ReactNative, Jenkins",
+    role: "Frontend Developer (Web + Mobile)",
+    desc: "Dating.com is a dating platform designed for a wide range of users, regardless of gender, preferences and values",
+    achvs: [
+      "Implemented and supported business features in client apps",
+      "Refactored project to be able launching multiple look-a-like apps",
+    ],
+  },
+  {
+    title: "BamBam: Live Video Chat",
+    env: "JavaScript, TypeScript, ReactNative, Jenkins",
+    role: "Frontend Developer (Mobile)",
+    desc: "BamBam is a chatroulette that allows you to meet different types of users through video communication",
+    achvs: [
+      "Implemented and supported business features in client app",
+      "Investigated and implemented video calls feature",
+      "Helped to improved retention by engaging users via call notifications",
+      "Investigated and implemented Voip-call features for iOS app",
+      "Releasing new versions to app stores",
+      "Debugged and fixed legacy code of core",
+    ],
+  },
+  {
+    title: "Magnet: Chat, Play & Flirt",
+    env: "JavaScript, TypeScript, React, ReactNative, Jenkins, GitLab Pipelines",
+    role: "Frontend Developer (Web + Mobile)",
+    desc: "Magnet is a dating app. What distinguishes Magnet from other dating apps is that here all accounts are hidden from each other by the account holder's virtual avatar which is generated during registration. Users do not see each others’ photos until they are matched",
+    achvs: [
+      "Implemented and supported business features in client app",
+      "Releasing new versions to app stores",
+      "Collecting and analyzing user-experience metrics",
+      "Refactored and enhanced the web app for administrators",
+      "Releasing new version of administrators' app",
+    ],
+  },
+];
+
+export const SDVsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
+  (_, ref) => {
+    return (
+      <BasePage ref={ref} number={6}>
+        <ProjectsPage
+          companyTitle="SDV, March 2020 - July 2022"
+          projects={projects}
+        />
+      </BasePage>
+    );
+  }
+);

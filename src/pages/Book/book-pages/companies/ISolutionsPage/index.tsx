@@ -1,55 +1,29 @@
 import { BasePage } from "common/templates/BasePage";
+import { ProjectsPage } from "common/templates/ProjectsPage";
 import { BookPageProps } from "pages/Book/book-pages";
-import styles from "pages/Book/book-pages/companies/projectTable.module.css";
+import { Project } from "common/templates/ProjectsPage/types";
 import React from "react";
+
+const project: Project = {
+  title: "WeHands",
+  env: "PHP, Symfony-PHP, Doctrine ORM, Angular.js, JavaScript, jQuery, Bootstrap, MySQL, Apache, Debian OS",
+  role: "Full Stack Developer",
+  desc: "WeHands is a platform designed to connect photographers with retouchers. Photographers can post their work and describe their requirements to retouchers. Further in the marketplace, retouchers have the opportunity to apply for photo processing.",
+  achvs: [
+    "Created web pages",
+    "Implemented business logic",
+    "Got experience of working in team",
+  ],
+};
 
 export const ISolutionsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (_, ref) => {
     return (
       <BasePage ref={ref} number={3}>
-        <div className={styles.container}>
-          <h4>iSolutions, September 2015 - June 2016</h4>
-          <table className={styles.projectTable}>
-            <thead>
-              <tr>
-                <th>Project:</th>
-                <th>Wehands</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Environment:</td>
-                <td>
-                  PHP, Symfony-PHP, Doctrine ORM, Angular.js, JavaScript,
-                  jQuery, Bootstrap, MySQL, Apache, Debian OS
-                </td>
-              </tr>
-              <tr>
-                <td>Role:</td>
-                <td>Full Stack Developer</td>
-              </tr>
-              <tr>
-                <td>Project description:</td>
-                <td>
-                  WeHand is a platform designed to connect photographers with
-                  retouchers. Photographers can post their work and describe
-                  their requirements to retouchers. Further in the marketplace,
-                  retouchers have the opportunity to apply for photo processing.
-                </td>
-              </tr>
-              <tr>
-                <td>Achievements:</td>
-                <td>
-                  <ul>
-                    <li>Created web pages</li>
-                    <li>Implemented business logic</li>
-                    <li>Got experience of working in team</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <ProjectsPage
+          companyTitle="iSolutions, September 2015 - June 2016"
+          projects={[project]}
+        />
       </BasePage>
     );
   }

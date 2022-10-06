@@ -15,7 +15,7 @@ import {
   ISolutionsPage,
   ElinextsPage,
   CiklumsPage,
-  SocialDiscoveryVenturesPage,
+  SDVsPage,
   LanguagesPage,
   SkillsPage,
 } from "./book-pages";
@@ -107,7 +107,7 @@ function Book() {
       <ElinextsPage key="elinext" isFocused={true} />,
 
       <CiklumsPage key="ciklum" isFocused={true} />,
-      <SocialDiscoveryVenturesPage key="sdv" isFocused={true} />,
+      <SDVsPage key="sdv" isFocused={true} />,
 
       <BlankPage key="blank2" />,
       <BackCover key="11" />,

@@ -1,38 +1,38 @@
-.projectTable {
+.table {
   /* border: 1px solid black; */
   font-size: 14px;
 }
 
-.projectTable thead {
+.table thead {
   background-color: #cccccc;
 }
 
-.projectTable tr > * {
+.table tr > * {
   padding-block-end: 3px;
 }
 
-.projectTable tr > *:first-child {
+.table tr > *:first-child {
   text-align: right;
   font-weight: 700;
 }
 
-.projectTable tbody {
+.table tbody {
   padding-inline-start: 7px;
   font-size: 13px;
 }
 
-.projectTable th,
-.projectTable td {
+.table th,
+.table td {
   /* border: 0.1px solid #000000; */
 }
 
-.projectTable ul {
+.table ul {
   margin: 0;
   padding-inline-start: 10px;
   text-indent: 0;
   list-style-type: "\01F3C6";
 }
 
-.projectTable li {
+.table li {
   padding-inline-start: 3px;
 }
