@@ -15,6 +15,6 @@
 // PROD
 export const isGreetingEnabled = true;
 export const greetingSpeedMode = 1;
-export const animationSpeedMode = 1;    // from 0 to 1
+export const animationSpeedMode = 1; // from 0 to 1
 export const startPage = 0;
 export const delayBetweenPageFlipping = 2000;

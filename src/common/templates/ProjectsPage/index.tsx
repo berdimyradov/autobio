@@ -1,6 +1,7 @@
+import clsx from "clsx";
 import { ProjectTable } from "common/components/ProjectTable";
 import { Project } from "common/templates/ProjectsPage/types";
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
 type Props = {
@@ -12,13 +13,19 @@ export const ProjectsPage = (props: Props) => {
   const { companyTitle, projects } = props;
   const [currentProject, setCurrentProject] = useState(0);
 
-  const onPrev = useCallback(() => {
-    setCurrentProject(currentProject - 1);
-  }, [currentProject]);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentProject((currentProject) => {
+        if (currentProject >= projects.length - 1) {
+          clearInterval(intervalId);
+          return currentProject;
+        }
+        return currentProject + 1;
+      });
+    }, 5750);
 
-  const onNext = useCallback(() => {
-    setCurrentProject(currentProject + 1);
-  }, [currentProject]);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -26,17 +33,20 @@ export const ProjectsPage = (props: Props) => {
         <h4>{companyTitle}</h4>
         <ProjectTable project={projects[currentProject]} />
       </section>
-      {projects.length > 1 && (
-        <div>
-          <button disabled={currentProject === 0} onClick={onPrev}>
-            Prev
-          </button>
-          <button
-            disabled={currentProject === projects.length - 1}
-            onClick={onNext}
-          >
-            Next
-          </button>
+      {projects.length && (
+        <div className={styles.indicators}>
+          {projects.map((_, index) => (
+            <button
+              key={`project-${index}`}
+              onClick={(e) => setCurrentProject(index)}
+              className={clsx(
+                styles.amazonLight,
+                currentProject === index && styles.animated
+              )}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       )}
     </div>

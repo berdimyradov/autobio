@@ -32,8 +32,8 @@ export const ProjectTable = (props: Props) => {
           <td>Achievements:</td>
           <td>
             <ul>
-              {project.achvs.map((achv) => (
-                <li>{achv}</li>
+              {project.achvs.map((achv, index) => (
+                <li key={index}>{achv}</li>
               ))}
             </ul>
           </td>

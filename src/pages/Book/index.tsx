@@ -115,6 +115,7 @@ function Book() {
   }, [currentPage, focusPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
+    console.log('Book:onFlip', data)
     setCurrentPage(data);
   }, []);
 

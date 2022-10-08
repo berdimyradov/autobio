@@ -4,7 +4,7 @@ import hasbikWave from "assets/gifs/hasbik-wave.gif";
 import { NotebookPaper } from "common/templates/NotebookPaper";
 import { calculateAge } from "common/utils";
 import { BookPageProps } from "pages/Book/book-pages";
-import React, { RefObject, useCallback, useMemo, useRef } from "react";
+import React, { RefObject, useCallback, useRef } from "react";
 import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "./styles.module.css";

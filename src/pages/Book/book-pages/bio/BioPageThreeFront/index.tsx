@@ -31,7 +31,6 @@ export const BioPageThreeFront = React.forwardRef<
     drawWorkaround(() => {
       node?.current?.draw(id, animationDuration);
       setTimeout(() => {
-        console.log("BioPageThreeFront:onAnimationFinished");
         onAnimationFinished && onAnimationFinished();
       }, animationDuration);
     });

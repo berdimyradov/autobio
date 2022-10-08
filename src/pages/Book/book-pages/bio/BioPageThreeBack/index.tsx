@@ -27,7 +27,6 @@ export const BioPageThreeBack = React.forwardRef<HTMLDivElement, BookPageProps>(
     };
 
     const onChange = useCallback((node: RefObject<VaraType>) => {
-      console.log("BioPageBack:onChange", node.current);
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {

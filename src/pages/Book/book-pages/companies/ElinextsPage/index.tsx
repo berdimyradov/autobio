@@ -47,7 +47,7 @@ const projects: Project[] = [
   },
   {
     title: "Elada",
-    env: "ypeScript, Angular 4, Node.js, Express.js",
+    env: "TypeScript, Angular 4, Node.js, Express.js",
     role: "Full Stack Developer",
     desc: "This project is a survey taking module of a wider system in a private clinic. Questioned has an opportunity to view the presentation of the human body and to point out the parts of the body that he has problems with.",
     achvs: [
@@ -57,7 +57,6 @@ const projects: Project[] = [
       "Integrated a client app with server app via REST-api",
       "Testing and deploying a client app",
       "Setted up a delivery system for an app",
-      "Fixed bugs ",
       "Implemented new features",
     ],
   },
