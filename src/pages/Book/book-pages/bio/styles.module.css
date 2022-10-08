@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.gif {
+  position: absolute;
+  height: 155px;
+  right: 50px;
+  bottom: 50px;
+  transform: rotate(25deg) scale(1);
+}
+
+.gif img {
+  height: 100%;
+  border-radius: 25px;
+}
+
+.emojies {
+  position: absolute;
+  font-size: 2.5rem;
+  right: 50px;
+  bottom: 50px;
+  transform: rotate(-25deg) scale(1);
+}

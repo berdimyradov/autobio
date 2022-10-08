@@ -4,9 +4,8 @@ import { TextStep, TextProperties, VaraType } from "vara";
 import { BookPageProps } from "pages/Book/book-pages";
 import { VaraAdapter } from "adapters/VaraAdapter";
 import { drawWorkaround } from "adapters/VaraAdapter/utils";
-import hasbikWave from "assets/gifs/hasbik-pizza.gif";
 import { animationSpeedMode } from "pages/Book/config";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 const animationDuration = 4 * 1000 * animationSpeedMode;
 const id = "bio-back";
@@ -48,14 +47,6 @@ export const BioPageOneBack = React.forwardRef<HTMLDivElement, BookPageProps>(
               config={config}
             />
           )}
-          <div className={styles.gif}>
-            <img
-              src={hasbikWave}
-              className="box-shadow-3d"
-              alt="hasbik is waving at you"
-            />
-          </div>
-
           <div className={styles.emojies}>
             <p>🇺🇸 🥤 🍕</p>
           </div>

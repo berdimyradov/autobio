@@ -7,7 +7,7 @@ import { BookPageProps } from "pages/Book/book-pages";
 import React, { RefObject, useCallback, useRef } from "react";
 import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 const animationDuration = 8 * 1000 * animationSpeedMode;
 const age = calculateAge(new Date("10/14/1992"), new Date());

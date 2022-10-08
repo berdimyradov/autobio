@@ -5,10 +5,8 @@ import { BookPageProps } from "pages/Book/book-pages";
 import { calculateAge } from "common/utils";
 import { VaraAdapter } from "adapters/VaraAdapter";
 import { drawWorkaround } from "adapters/VaraAdapter/utils";
-import hasbikWave from "assets/gifs/hasbik-champ.gif";
-import hasbikWave2 from "assets/gifs/hasbik-training.gif";
 import { animationSpeedMode } from "pages/Book/config";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 const animationDuration = 4 * 1000 * animationSpeedMode;
 const id = "bio-three-back";
@@ -30,7 +28,6 @@ export const BioPageThreeBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {
-          console.log('BioPageThreeBack:onAnimationFinished');
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });
@@ -51,21 +48,6 @@ export const BioPageThreeBack = React.forwardRef<HTMLDivElement, BookPageProps>(
               config={config}
             />
           )}
-          <div className={styles.gif}>
-            <img
-              src={hasbikWave}
-              className="box-shadow-3d"
-              alt="hasbik is waving at you"
-            />
-          </div>
-
-          <div className={styles.emojies}>
-            <img
-              src={hasbikWave2}
-              className="box-shadow-3d"
-              alt="hasbik is waving at you"
-            />
-          </div>
         </div>
       </NotebookPaper>
     );
