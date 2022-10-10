@@ -37,11 +37,7 @@
   background-size: 200% 100%;
 }
 
-.amazonLight.animated {
-  animation: slide 5s linear, slide 0.75s ease-out 5s alternate-reverse;
-}
-
-.amazonLight.animated,
+.focused,
 .amazonLight:focus {
   border-color: #008296;
   box-shadow: #d5d9d980 0 2px 5px 0;

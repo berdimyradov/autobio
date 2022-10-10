@@ -18,12 +18,15 @@ const project: Project = {
 };
 
 export const CiklumsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
-  (_, ref) => {
+  (props, ref) => {
+    const { isFocused, onAnimationFinished } = props;
     return (
       <BasePage ref={ref} number={5}>
         <ProjectsPage
           companyTitle="Ciklum, September 2018 - February 2020"
           projects={[project]}
+          isReviewing={isFocused}
+          onReviewFinished={onAnimationFinished}
         />
       </BasePage>
     );

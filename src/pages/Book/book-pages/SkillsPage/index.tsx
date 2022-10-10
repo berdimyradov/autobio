@@ -1,7 +1,10 @@
 import { Crossword, CrosswordMode } from "common/components/Crossword";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
-import { delayBetweenPageFlipping } from "pages/Book/config";
+import {
+  crosswordAnimationSpeed,
+  delayBetweenPageFlipping,
+} from "pages/Book/config";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./styles.module.css";
 
@@ -68,7 +71,7 @@ export const SkillsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
         timer = setTimeout(() => {
           modeRef.current = "shown";
           setMode("shown");
-        }, cardsDisplayed * 300);
+        }, cardsDisplayed * crosswordAnimationSpeed);
       }
       if (isFocused && modeRef.current === "shown") {
         flipTimer = setTimeout(() => {

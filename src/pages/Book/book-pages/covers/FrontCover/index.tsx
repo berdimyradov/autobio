@@ -2,10 +2,10 @@ import clsx from "clsx";
 import { BookPageProps } from "pages/Book/book-pages";
 import { delayBetweenPageFlipping } from "pages/Book/config";
 import React, { useEffect, useRef } from "react";
-import frontCoverStyles from "./front-cover.module.css";
+import coverStyles from "../cover.module.css";
 import styles from "./styles.module.css";
 
-export const CoverWithSide = React.forwardRef<HTMLDivElement, BookPageProps>(
+export const FrontCover = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
     const { isFocused, onAnimationFinished } = props;
     const isAlreadyAnimated = useRef<boolean>(false);
@@ -27,20 +27,16 @@ export const CoverWithSide = React.forwardRef<HTMLDivElement, BookPageProps>(
 
     return (
       <div ref={ref}>
-        <div className={styles.container}>
-          <div className={clsx(styles.wrapper, styles.animated)}>
-            <div className={styles.book}>
-              <div className={styles.content}>
-                <div className={frontCoverStyles.container}>
-                  <div className={frontCoverStyles.cover}>
-                    <p className={frontCoverStyles.author}>
-                      Kerim Berdimyradov
-                    </p>
-                  </div>
+        <div className={clsx(coverStyles.container, styles.container)}>
+          <div className={clsx(coverStyles.wrapper, coverStyles.animated)}>
+            <div className={coverStyles.book}>
+              <div className={coverStyles.content}>
+                <div className={clsx(coverStyles.cover, styles.cover)}>
+                  <p className={styles.author}>Kerim Berdimyradov</p>
                 </div>
               </div>
             </div>
-            <div className={styles.side}>
+            <div className={clsx(coverStyles.side, styles.side)}>
               <h2>
                 <span>Curriculum Vitae</span>
                 <span>Kerim Berdimyradov</span>

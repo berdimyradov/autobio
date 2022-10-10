@@ -17,12 +17,15 @@ const project: Project = {
 };
 
 export const ISolutionsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
-  (_, ref) => {
+  (props, ref) => {
+    const { isFocused, onAnimationFinished } = props;
     return (
       <BasePage ref={ref} number={3}>
         <ProjectsPage
           companyTitle="iSolutions, September 2015 - June 2016"
           projects={[project]}
+          isReviewing={isFocused}
+          onReviewFinished={onAnimationFinished}
         />
       </BasePage>
     );

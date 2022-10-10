@@ -1,3 +1,4 @@
+import { crosswordAnimationSpeed } from "pages/Book/config";
 import { useCallback, useMemo } from "react";
 import styles from "./styles.module.css";
 
@@ -43,7 +44,7 @@ export const Crossword = (props: Props) => {
       return {
         animationName: styles.rotateCell,
         animationDuration: "0.8s",
-        animationDelay: `${delays[index] * 3}00ms`,
+        animationDelay: `${delays[index] * crosswordAnimationSpeed}ms`,
         animationFillMode: "forwards",
       };
     },

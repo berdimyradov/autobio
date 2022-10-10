@@ -45,12 +45,15 @@ const projects: Project[] = [
 ];
 
 export const SDVsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
-  (_, ref) => {
+  (props, ref) => {
+    const { isFocused, onAnimationFinished } = props;
     return (
       <BasePage ref={ref} number={6}>
         <ProjectsPage
           companyTitle="SDV, March 2020 - July 2022"
           projects={projects}
+          isReviewing={isFocused}
+          onReviewFinished={onAnimationFinished}
         />
       </BasePage>
     );

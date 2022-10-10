@@ -1,0 +1,19 @@
+.container {
+  perspective: 3000px;
+}
+
+.cover::after {
+  left: 10px;
+}
+
+.side {
+  left: -20px;
+}
+
+.author {
+  font-weight: 400;
+  position: absolute;
+  top: 475px;
+  left: 50px;
+  opacity: 0.8;
+}

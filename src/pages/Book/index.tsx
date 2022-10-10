@@ -10,7 +10,7 @@ import {
   BioPageThreeFront,
   BioPageTwoBack,
   BioPageTwoFront,
-  CoverWithSide,
+  FrontCover,
   DedicationPage,
   ISolutionsPage,
   ElinextsPage,
@@ -46,7 +46,7 @@ function Book() {
 
   const renderedPageSides = useMemo(() => {
     return [
-      <CoverWithSide
+      <FrontCover
         key="0"
         isFocused={currentPage === 0}
         onAnimationFinished={flipNext}
@@ -58,7 +58,7 @@ function Book() {
         isFocused={currentPage === 1}
         onAnimationFinished={flipNext}
       />,
-      <BlankPage key="blank3" />,
+      <BlankPage key="blank2" />,
 
       <BioPageOneFront
         key="bio-one-front"
@@ -90,10 +90,7 @@ function Book() {
       <BioPageThreeBack
         key="bio-three-back"
         isFocused={currentPage === 9}
-        onAnimationFinished={() => {
-          console.log("Crossword:onAnimationFinished", 9);
-          setFocusPage(9);
-        }}
+        onAnimationFinished={() => setFocusPage(9)}
       />,
 
       <SkillsPage
@@ -101,21 +98,41 @@ function Book() {
         isFocused={focusPage === 9}
         onAnimationFinished={flipNext}
       />,
-      <LanguagesPage key="languages" isFocused={currentPage === 11} />,
+      <LanguagesPage
+        key="languages"
+        isFocused={currentPage === 11}
+        onAnimationFinished={() => setFocusPage(11)}
+      />,
 
-      <ISolutionsPage key="isolutions" isFocused={true} />,
-      <ElinextsPage key="elinext" isFocused={true} />,
+      <ISolutionsPage
+        key="isolutions"
+        isFocused={focusPage === 11}
+        onAnimationFinished={flipNext}
+      />,
+      <ElinextsPage
+        key="elinext"
+        isFocused={currentPage === 13}
+        onAnimationFinished={() => setFocusPage(13)}
+      />,
 
-      <CiklumsPage key="ciklum" isFocused={true} />,
-      <SDVsPage key="sdv" isFocused={true} />,
+      <CiklumsPage
+        key="ciklum"
+        isFocused={focusPage === 13}
+        onAnimationFinished={flipNext}
+      />,
+      <SDVsPage
+        key="sdv"
+        isFocused={currentPage === 15}
+        onAnimationFinished={flipNext}
+      />,
 
-      <BlankPage key="blank2" />,
+      <BlankPage key="blank3" />,
       <BackCover key="11" />,
     ];
   }, [currentPage, focusPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    console.log('Book:onFlip', data)
+    console.log("Book:onFlip", data);
     setCurrentPage(data);
   }, []);
 

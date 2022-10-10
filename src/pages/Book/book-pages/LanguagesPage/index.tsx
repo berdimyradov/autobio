@@ -1,6 +1,7 @@
 import { Crossword, CrosswordMode } from "common/components/Crossword";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
+import { crosswordAnimationSpeed } from "pages/Book/config";
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 
@@ -40,7 +41,7 @@ const cardsDisplayed = Math.max(...delays);
 
 export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
-    const { isFocused } = props;
+    const { isFocused, onAnimationFinished } = props;
     const mode = useRef<CrosswordMode>("animated");
 
     useEffect(() => {
@@ -48,7 +49,8 @@ export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
       if (isFocused && mode.current !== "shown") {
         timer = setTimeout(() => {
           mode.current = "shown";
-        }, cardsDisplayed * 300);
+          onAnimationFinished && onAnimationFinished()
+        }, cardsDisplayed * crosswordAnimationSpeed);
       }
       return () => {
         clearTimeout(timer);

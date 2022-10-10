@@ -1,0 +1,121 @@
+.container {
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: 2px 4px 4px 2px;
+  box-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
+  font-weight: 400;
+  color: #2b2b2b;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.wrapper:hover {
+  transform: rotate3d(0, 1, 0, 35deg);
+}
+
+.animated {
+  animation: peekSide 3s ease 1.5s;
+}
+
+@keyframes peekSide {
+  0% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  50% {
+    transform: rotate3d(0, 1, 0, 35deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+
+.book {
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  transition: transform 0.5s;
+  transform: translate3d(0, 0, 20px);
+  z-index: 10;
+}
+
+.book:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  /* left: -1px; */
+  width: 1px;
+}
+
+.wrapper > div,
+.book > div {
+  display: block;
+  position: absolute;
+}
+
+.book > div {
+  border-radius: 0 3px 3px 0;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
+}
+
+.cover {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  /* left: 10px; */
+  bottom: 0;
+  width: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 3px rgb(255 255 255 / 10%);
+}
+
+.side {
+  height: 100%;
+  width: 40px;
+  /* left: -20px; */
+  background-color: rgba(232, 229, 234);
+  transform: rotate3d(0, 1, 0, -90deg);
+}
+
+.side h2 {
+  width: 500px;
+  height: 40px;
+  color: #2b2b2b;
+  font-size: 15px;
+  line-height: 40px;
+  padding-right: 10px;
+  text-align: right;
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-40px);
+}
+
+.side h2 span:first-child {
+  padding-right: 80px;
+  font-family: acumin-pro, sans-serif;
+}
+
+.side h2 span:last-child {
+  font-size: 13px;
+  font-weight: 400;
+}

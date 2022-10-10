@@ -86,12 +86,15 @@ const projects: Project[] = [
 ];
 
 export const ElinextsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
-  (_, ref) => {
+  (props, ref) => {
+    const { isFocused, onAnimationFinished } = props;
     return (
       <BasePage ref={ref} number={4}>
         <ProjectsPage
           companyTitle="Elinext, June 2016 - August 2018"
           projects={projects}
+          isReviewing={isFocused}
+          onReviewFinished={onAnimationFinished}
         />
       </BasePage>
     );
