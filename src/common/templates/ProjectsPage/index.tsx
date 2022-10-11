@@ -29,7 +29,6 @@ export const ProjectsPage = (props: Props) => {
     let intervalId: NodeJS.Timer;
     if (isReviewing) {
       timerId = setTimeout(() => {
-        console.log("ProjectsPage:flipTimer");
         onReviewFinished && onReviewFinished();
       }, (projectReviewDuration + projectReviewDelimiter) * projects.length);
 

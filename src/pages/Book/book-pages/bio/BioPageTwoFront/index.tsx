@@ -8,7 +8,7 @@ import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 8 * 1000 * animationSpeedMode;
+export const animationDuration = 8 * 1000 * animationSpeedMode;
 const age = calculateAge(new Date("10/14/1992"), new Date());
 const id = "bio-two-front";
 const text = `Later in 2010 when I was 18 I enrolled in Baranovichi State University into engeening in the Faculty of Engineering and in 2015 received a degree in software engineering.  `;

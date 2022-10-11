@@ -7,7 +7,7 @@ import { VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "./styles.module.css";
 
-const animationDuration = 1.5 * 1000 * animationSpeedMode;
+export const animationDuration = 1.5 * 1000 * animationSpeedMode;
 
 export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
@@ -16,7 +16,6 @@ export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
       drawWorkaround(() => {
         node?.current?.draw("dedication1", animationDuration);
         setTimeout(() => {
-          console.log("DedicationPage:onAnimationFinished");
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });

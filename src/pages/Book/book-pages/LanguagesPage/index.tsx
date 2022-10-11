@@ -37,7 +37,7 @@ const delays = [
   0, 0, 14, 0, 0, 21, 0,
 ];
 
-const cardsDisplayed = Math.max(...delays);
+export const animationDuration = Math.max(...delays) * crosswordAnimationSpeed;
 
 export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
@@ -50,7 +50,7 @@ export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
         timer = setTimeout(() => {
           mode.current = "shown";
           onAnimationFinished && onAnimationFinished()
-        }, cardsDisplayed * crosswordAnimationSpeed);
+        }, animationDuration);
       }
       return () => {
         clearTimeout(timer);

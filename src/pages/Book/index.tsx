@@ -1,6 +1,7 @@
-import { BasePage } from "common/templates/BasePage";
 import { BlankPage } from "common/templates/BlankPage";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 import HTMLFlipBook from "react-pageflip";
 import {
   BackCover,
@@ -10,32 +11,100 @@ import {
   BioPageThreeFront,
   BioPageTwoBack,
   BioPageTwoFront,
-  FrontCover,
-  DedicationPage,
-  ISolutionsPage,
-  ElinextsPage,
   CiklumsPage,
-  SDVsPage,
+  DedicationPage,
+  ElinextsPage,
+  FrontCover,
+  ISolutionsPage,
   LanguagesPage,
+  SDVsPage,
   SkillsPage,
 } from "./book-pages";
 import {
+  BackCoverDuration,
+  BioPageOneBackDuration,
+  BioPageOneFrontDuration,
+  BioPageThreeBackDuration,
+  BioPageTwoFrontDuration,
+  CiklumsPageDuration,
+  DedicationPageDuration,
+  ElinextsPageDuration,
+  FrontCoverDuration,
+  ISolutionsPageDuration,
+  LanguagesPageDuration,
+  SDVsPageDuration,
+  SkillsPageDuration,
+} from "./book-pages/durations";
+import {
   delayBetweenPageFlipping,
-  greetingSpeedMode,
+  greetingDuration,
   isGreetingEnabled,
   startPage,
 } from "./config";
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
+const flippingTime = 1000;
+//prettier-ignore
+const presentationModeDuration =
+  greetingDuration +
+  FrontCoverDuration + delayBetweenPageFlipping + flippingTime + 
+  DedicationPageDuration + delayBetweenPageFlipping + flippingTime +
+  BioPageOneFrontDuration + delayBetweenPageFlipping + flippingTime +
+  BioPageOneBackDuration + delayBetweenPageFlipping + flippingTime +
+  BioPageTwoFrontDuration + delayBetweenPageFlipping + flippingTime +
+  BioPageThreeBackDuration + delayBetweenPageFlipping + flippingTime +
+  SkillsPageDuration + delayBetweenPageFlipping + flippingTime +
+  LanguagesPageDuration + delayBetweenPageFlipping + flippingTime +
+  ISolutionsPageDuration + delayBetweenPageFlipping + flippingTime + 
+  ElinextsPageDuration + delayBetweenPageFlipping + flippingTime + 
+  CiklumsPageDuration + delayBetweenPageFlipping + flippingTime + 
+  SDVsPageDuration + delayBetweenPageFlipping + flippingTime + 
+  BackCoverDuration + delayBetweenPageFlipping;
+console.log(
+  "presentation:Duration",
+  `${presentationModeDuration}ms === ${presentationModeDuration / 1000}s === ${
+    presentationModeDuration / 1000 / 60
+  }m`
+);
+
 function Book() {
+  const [isPresentationMode, setIsPresentationMode] =
+    useState(isGreetingEnabled);
   const [isBookVisible, setIsBookVisible] = useState(!isGreetingEnabled);
   const flipBook = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(startPage);
   const [focusPage, setFocusPage] = useState(0);
 
+  useEffect(() => {
+    console.log(`PresentationMode => ${isPresentationMode}`, Date.now());
+    let timerId: NodeJS.Timeout;
+    if (isPresentationMode) {
+      Store.removeAllNotifications();
+      Store.addNotification({
+        title: "Presentation mode!",
+        message: "User interactions are disabled in presentation mode",
+        type: "info",
+        insert: "top",
+        container: "top-full",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: presentationModeDuration,
+          onScreen: true,
+          click: false,
+        },
+      });
+      timerId = setTimeout(() => {
+        console.log("PresentationMode => false", Date.now());
+        setIsPresentationMode(false);
+      }, presentationModeDuration);
+    }
+    return () => clearTimeout(timerId);
+  }, []);
+
   const flipNext = () => {
-    console.log("Book:onPageAnimationFinished", currentPage);
+    console.log("Book:onPageAnimationFinished", currentPage, Date.now());
     if (isGreetingEnabled) {
       setTimeout(() => {
         const controller = flipBook.current.pageFlip().flipController;
@@ -132,13 +201,14 @@ function Book() {
   }, [currentPage, focusPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    console.log("Book:onFlip", data);
+    console.log("Book:onFlip", data, Date.now());
     setCurrentPage(data);
   }, []);
 
-  console.log("Book", { currentPage, focusPage });
+  // console.log("Book", { currentPage, focusPage });
   return (
     <div className="container">
+      <ReactNotifications />
       {isBookVisible ? (
         // @ts-ignore
         <HTMLFlipBook
@@ -150,7 +220,7 @@ function Book() {
           startPage={startPage}
           // size={"stretch"}
           drawShadow={true}
-          flippingTime={1000}
+          flippingTime={flippingTime}
           // usePortrait={false}
           // startZIndex={1}
           // autoSize={true}
@@ -160,16 +230,13 @@ function Book() {
           // useMouseEvents={false}
           // swipeDistance={10}
           showPageCorners={false}
-          // disableFlipByClick={false}
+          disableFlipByClick={true}
           onFlip={onFlip}
         >
           {renderedPageSides}
         </HTMLFlipBook>
       ) : (
-        <Greeting
-          speedMode={greetingSpeedMode}
-          onAnimationFinished={() => setIsBookVisible(true)}
-        />
+        <Greeting onAnimationFinished={() => setIsBookVisible(true)} />
       )}
     </div>
   );

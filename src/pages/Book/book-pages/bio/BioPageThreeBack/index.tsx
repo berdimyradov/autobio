@@ -8,7 +8,7 @@ import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 4 * 1000 * animationSpeedMode;
+export const animationDuration = 4 * 1000 * animationSpeedMode;
 const id = "bio-three-back";
 const amountOfyears = calculateAge(new Date("01/01/2015"), new Date());
 const text = `${amountOfyears} years since passed and here you are about to learn about my skills and projects I took part in. Please pay attention! I might be your new champion :)`;

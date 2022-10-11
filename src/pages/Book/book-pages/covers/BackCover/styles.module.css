@@ -11,7 +11,7 @@
 }
 
 .animated {
-  animation: peekSide 3s ease 1.5s;
+  animation: peekSide 3s ease 0.5s;
 }
 
 @keyframes peekSide {

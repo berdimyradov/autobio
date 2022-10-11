@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.8d34e42d.css",
-    "main.js": "/static/js/main.045209a4.js",
+    "main.css": "/static/css/main.d9d63075.css",
+    "main.js": "/static/js/main.bc3e081f.js",
     "static/js/787.570898cd.chunk.js": "/static/js/787.570898cd.chunk.js",
     "static/media/hasbik-wave.gif": "/static/media/hasbik-wave.3b46d9436f63fdeebddc.gif",
     "static/media/hasbik-money-1.gif": "/static/media/hasbik-money-1.8a3e8d35a06d47582cc0.gif",
     "static/media/linktree.png": "/static/media/linktree.ac1e5a25a7e7b1ad7ae8.png",
     "static/media/me.png": "/static/media/me.2521c3b6a8ad2a613433.png",
     "index.html": "/index.html",
-    "main.8d34e42d.css.map": "/static/css/main.8d34e42d.css.map",
-    "main.045209a4.js.map": "/static/js/main.045209a4.js.map",
+    "main.d9d63075.css.map": "/static/css/main.d9d63075.css.map",
+    "main.bc3e081f.js.map": "/static/js/main.bc3e081f.js.map",
     "787.570898cd.chunk.js.map": "/static/js/787.570898cd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8d34e42d.css",
-    "static/js/main.045209a4.js"
+    "static/css/main.d9d63075.css",
+    "static/js/main.bc3e081f.js"
   ]
 }

@@ -1,7 +1,8 @@
 import { BasePage } from "common/templates/BasePage";
 import { ProjectsPage } from "common/templates/ProjectsPage";
-import { BookPageProps } from "pages/Book/book-pages";
 import { Project } from "common/templates/ProjectsPage/types";
+import { BookPageProps } from "pages/Book/book-pages";
+import { projectReviewDelimiter, projectReviewDuration } from "pages/Book/config";
 import React from "react";
 
 const project: Project = {
@@ -16,6 +17,8 @@ const project: Project = {
     "Managed and lead a small team with a microservice",
   ],
 };
+
+export const animationDuration = projectReviewDuration + projectReviewDelimiter;
 
 export const CiklumsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {

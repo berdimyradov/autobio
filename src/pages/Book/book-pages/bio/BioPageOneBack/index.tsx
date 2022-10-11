@@ -7,7 +7,7 @@ import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 4 * 1000 * animationSpeedMode;
+export const animationDuration = 4 * 1000 * animationSpeedMode;
 const id = "bio-back";
 const text = `In 2008 at the age of 15 I got a scholarship to study abroad in USA as an exchange student. `;
 
@@ -26,7 +26,6 @@ export const BioPageOneBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       drawWorkaround(() => {
         node?.current?.draw(id, animationDuration);
         setTimeout(() => {
-          console.log('BioPageOneBack:onAnimationFinished');
           onAnimationFinished && onAnimationFinished();
         }, animationDuration);
       });

@@ -7,7 +7,7 @@ import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 4 * 1000 * animationSpeedMode;
+export const animationDuration = 4 * 1000 * animationSpeedMode;
 const id = "bio-two-back";
 const text = `After graduating I enrolled in Belarusian State University of Informatics and Radioelectronics and a year later I received my master's degree in computer science.`;
 

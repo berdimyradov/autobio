@@ -6354,6 +6354,11 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
 
+react-notifications-component@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-notifications-component/-/react-notifications-component-4.0.1.tgz#c4cf71eb40375f346e2a4dc2b395a8590895d253"
+  integrity sha512-NRBkWO19AsXmN0b8YQ0L12eoCAhrnmIZtGm77ATWSfQEXPL5PYSyeACpx7tePP+R2De9b0IP4yk9vY4TtzC02w==
+
 react-pageflip@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/react-pageflip/-/react-pageflip-2.0.3.tgz#b7b8ff3cab77fc749c27f43362a35f7a59aabbbd"

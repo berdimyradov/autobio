@@ -4,6 +4,8 @@ import React from "react";
 import common from "../cover.module.css";
 import styles from "./styles.module.css";
 
+export const animationDuration = 500;
+
 export const BackCover = React.forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div ref={ref}>

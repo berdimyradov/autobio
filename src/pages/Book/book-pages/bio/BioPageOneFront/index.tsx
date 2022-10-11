@@ -9,7 +9,7 @@ import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 8 * 1000 * animationSpeedMode;
+export const animationDuration = 8 * 1000 * animationSpeedMode;
 const age = calculateAge(new Date("10/14/1992"), new Date());
 const id = "bio-front";
 const text = `Hello my dear reader. Let's start our journey and introduce you myself. As you already may know my name is Kerim Berdimyradov.  I was born on October 14, 1992 which means that right now I'm ${age} years old :) and my childhood years were spent in sunny Turkmenistan`;

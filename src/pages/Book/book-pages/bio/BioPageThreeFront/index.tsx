@@ -9,7 +9,7 @@ import { TextProperties, TextStep, VaraType } from "vara";
 import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-const animationDuration = 8 * 1000 * animationSpeedMode;
+export const animationDuration = 8 * 1000 * animationSpeedMode;
 const age = calculateAge(new Date("10/14/1992"), new Date());
 const id = "bio-three-front";
 const text = `At the same time while I was studying for my master's degree I started my career as a software developer.`;

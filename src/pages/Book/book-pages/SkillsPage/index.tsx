@@ -54,7 +54,7 @@ const delays = [
   0, 37, 38, 21, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
-const cardsDisplayed = Math.max(...delays);
+export const animationDuration = Math.max(...delays) * crosswordAnimationSpeed;
 
 export const SkillsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
@@ -64,24 +64,18 @@ export const SkillsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
 
     useEffect(() => {
       let timer: NodeJS.Timer;
-      let flipTimer: NodeJS.Timer;
       if (isFocused && modeRef.current !== "shown") {
         modeRef.current = "animated";
         setMode("animated");
         timer = setTimeout(() => {
           modeRef.current = "shown";
           setMode("shown");
-        }, cardsDisplayed * crosswordAnimationSpeed);
+        }, animationDuration);
       }
       if (isFocused && modeRef.current === "shown") {
-        flipTimer = setTimeout(() => {
-          onAnimationFinished && onAnimationFinished();
-        }, delayBetweenPageFlipping);
+        onAnimationFinished && onAnimationFinished();
       }
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(flipTimer);
-      };
+      return () => clearTimeout(timer);
     }, [isFocused, modeRef.current]);
 
     return (
