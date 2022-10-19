@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a91da70f.css",
-    "main.js": "/static/js/main.f15d0f65.js",
+    "main.js": "/static/js/main.b0f2738c.js",
     "static/js/787.570898cd.chunk.js": "/static/js/787.570898cd.chunk.js",
     "static/media/hasbik-wave.gif": "/static/media/hasbik-wave.3b46d9436f63fdeebddc.gif",
     "static/media/hasbik-money-1.gif": "/static/media/hasbik-money-1.8a3e8d35a06d47582cc0.gif",
@@ -9,11 +9,11 @@
     "static/media/me.png": "/static/media/me.2521c3b6a8ad2a613433.png",
     "index.html": "/index.html",
     "main.a91da70f.css.map": "/static/css/main.a91da70f.css.map",
-    "main.f15d0f65.js.map": "/static/js/main.f15d0f65.js.map",
+    "main.b0f2738c.js.map": "/static/js/main.b0f2738c.js.map",
     "787.570898cd.chunk.js.map": "/static/js/787.570898cd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a91da70f.css",
-    "static/js/main.f15d0f65.js"
+    "static/js/main.b0f2738c.js"
   ]
 }
