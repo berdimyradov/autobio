@@ -28,6 +28,8 @@
 .lines {
     height: 100%;
     background-image: repeating-linear-gradient(white 0px, white 24px, #4683b480 25px);
+    /* for safari */
+    /* background-image: repeating-linear-gradient(white 0px, white 24px, #4683b480 27px); */
 }
 
 .shadow {

@@ -1,6 +1,6 @@
 :root {
   /* --bg-color: #c4bec6; */
-  --bg-color: #FFFFFF;
+  --bg-color: #ffffff;
 }
 
 .container {
@@ -11,6 +11,10 @@
   justify-content: center;
   align-items: center;
   background-color: var(--bg-color);
+}
+
+.book {
+  cursor: pointer;
 }
 
 .book.animated {
@@ -24,6 +28,16 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.book-overlay {
+  position: absolute;
+  /* background-color: rgba(255, 192, 203, 0.4); */
+  background: transparent;
+  width: 800px;
+  height: 550px;
+  z-index: 999999;
+  cursor: not-allowed;
 }
 
 /* Controller Buttons */

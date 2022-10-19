@@ -1,11 +1,8 @@
 import { Crossword, CrosswordMode } from "common/components/Crossword";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
-import {
-  crosswordAnimationSpeed,
-  delayBetweenPageFlipping,
-} from "pages/Book/config";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { crosswordAnimationSpeed } from "pages/Book/config";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 
 // prettier-ignore

@@ -45,6 +45,7 @@ import { Greeting } from "./Greeting";
 import "./styles.css";
 
 const flippingTime = 1000;
+const remainingTime = 10689;
 //prettier-ignore
 const presentationModeDuration =
   greetingDuration +
@@ -60,7 +61,8 @@ const presentationModeDuration =
   ElinextsPageDuration + delayBetweenPageFlipping + flippingTime + 
   CiklumsPageDuration + delayBetweenPageFlipping + flippingTime + 
   SDVsPageDuration + delayBetweenPageFlipping + flippingTime + 
-  BackCoverDuration + delayBetweenPageFlipping;
+  BackCoverDuration + delayBetweenPageFlipping + 
+  remainingTime;
 console.log(
   "presentation:Duration",
   `${presentationModeDuration}ms === ${presentationModeDuration / 1000}s === ${
@@ -77,7 +79,7 @@ function Book() {
   const [focusPage, setFocusPage] = useState(0);
 
   useEffect(() => {
-    console.log(`PresentationMode => ${isPresentationMode}`, Date.now());
+    console.log("Book:useEffect", Date.now());
     let timerId: NodeJS.Timeout;
     if (isPresentationMode) {
       Store.removeAllNotifications();
@@ -104,7 +106,7 @@ function Book() {
   }, []);
 
   const flipNext = () => {
-    console.log("Book:onPageAnimationFinished", currentPage, Date.now());
+    console.log("Book:onPageAnimationFinished", Date.now());
     if (isGreetingEnabled) {
       setTimeout(() => {
         const controller = flipBook.current.pageFlip().flipController;
@@ -201,13 +203,14 @@ function Book() {
   }, [currentPage, focusPage]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    console.log("Book:onFlip", data, Date.now());
+    console.log("Book:onFlip", data, Date.now(), isPresentationMode);
     setCurrentPage(data);
   }, []);
 
   // console.log("Book", { currentPage, focusPage });
   return (
     <div className="container">
+      {isPresentationMode && <div className="book-overlay"></div>}
       <ReactNotifications />
       {isBookVisible ? (
         // @ts-ignore
@@ -230,7 +233,7 @@ function Book() {
           // useMouseEvents={false}
           // swipeDistance={10}
           showPageCorners={false}
-          disableFlipByClick={true}
+          disableFlipByClick={false}
           onFlip={onFlip}
         >
           {renderedPageSides}
