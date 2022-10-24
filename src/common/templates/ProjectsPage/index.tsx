@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import { ProjectTable } from "common/components/ProjectTable";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services";
 import { Project } from "common/templates/ProjectsPage/types";
-import {
-  projectReviewDelimiter,
-  projectReviewDuration
-} from "pages/Book/config";
+import { animationSpeedMode } from "pages/Book/config";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
@@ -16,21 +15,35 @@ type Props = {
   mode?: "review" | "done";
 };
 
-const animationStyle = {
-  animation: `${styles.slide} ${projectReviewDuration}ms linear, ${styles.slide} ${projectReviewDelimiter}s ease-out ${projectReviewDuration}ms alternate-reverse`,
-};
+const projectReviewDuration = 5750;
+const projectReviewDelimiter = 750;
 
 export const ProjectsPage = (props: Props) => {
   const { companyTitle, projects, isReviewing, onReviewFinished } = props;
   const [currentProject, setCurrentProject] = useState(0);
+  const [modificator, setModificator] = useState(animationSpeedMode);
+
+  useObservable(
+    AnimationSpeedService.getInstance().modificator,
+    setModificator
+  );
+
+  const review = modificator * projectReviewDuration;
+  const delimiter = modificator * projectReviewDelimiter;
+  const duration = review + delimiter;
+
+  const animationStyle = {
+    animation: `${styles.slide} ${review}ms linear, ${styles.slide} ${delimiter}s ease-out ${review}ms alternate-reverse`,
+  };
 
   useEffect(() => {
     let timerId: NodeJS.Timer;
     let intervalId: NodeJS.Timer;
+
     if (isReviewing) {
       timerId = setTimeout(() => {
         onReviewFinished && onReviewFinished();
-      }, (projectReviewDuration + projectReviewDelimiter) * projects.length);
+      }, duration * projects.length);
 
       intervalId = setInterval(() => {
         setCurrentProject((currentProject) => {
@@ -40,7 +53,7 @@ export const ProjectsPage = (props: Props) => {
           }
           return currentProject + 1;
         });
-      }, projectReviewDuration + projectReviewDelimiter);
+      }, duration);
     }
 
     return () => {
@@ -62,8 +75,8 @@ export const ProjectsPage = (props: Props) => {
               key={`project-${index}`}
               onClick={(e) => setCurrentProject(index)}
               className={clsx(
-                styles.amazonLight,
-                isReviewing && currentProject === index && styles.focused
+                "btn-amazon--light",
+                isReviewing && currentProject === index && "focused"
               )}
               style={
                 isReviewing && currentProject === index ? animationStyle : {}

@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import coverStyles from "../cover.module.css";
 import styles from "./styles.module.css";
 
-export const animationDuration = delayBetweenPageFlipping + 500;
+const animationDuration = delayBetweenPageFlipping + 500;
 
 export const FrontCover = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {

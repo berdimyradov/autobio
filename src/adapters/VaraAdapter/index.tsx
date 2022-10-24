@@ -1,19 +1,7 @@
 import { RefObject, useEffect, useRef } from "react";
 import Vara, { TextStep, TextProperties, VaraType } from "vara";
 import styles from "./styles.module.css";
-
-// NOTE: see: https://raw.githubusercontent.com/akzhy/Vara/master/src/vara.js
-// "https://raw.githubusercontent.com/akzhy/Vara/master/fonts/Shadows-Into-Light/shadows-into-light.json";
-const FONTS =
-  "https://raw.githubusercontent.com/berdimyradov/berdimyradov.github.io/master/src/assets/fonts/shadows-into-light.json";
-
-const varaConfig: Partial<TextStep> = {
-  fontSize: 18,
-  strokeWidth: 1.75,
-  delay: 750,
-  duration: 1500,
-  letterSpacing: 3,
-};
+import { FONTS } from "./utils";
 
 type Props = {
   onVaraRef: (ref: RefObject<VaraType>) => void;

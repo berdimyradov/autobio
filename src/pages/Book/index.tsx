@@ -1,3 +1,8 @@
+import { preLoadAssetsForVara } from "adapters/VaraAdapter/utils";
+import clsx from "clsx";
+import { InfoLog } from "common/components/InfoLog";
+import { useObservable, useToggle } from "common/hooks";
+import { AnimationSpeedService } from "common/services/AnimationSpeed";
 import { BlankPage } from "common/templates/BlankPage";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ReactNotifications, Store } from "react-notifications-component";
@@ -21,54 +26,15 @@ import {
   SkillsPage,
 } from "./book-pages";
 import {
-  BackCoverDuration,
-  BioPageOneBackDuration,
-  BioPageOneFrontDuration,
-  BioPageThreeBackDuration,
-  BioPageTwoFrontDuration,
-  CiklumsPageDuration,
-  DedicationPageDuration,
-  ElinextsPageDuration,
-  FrontCoverDuration,
-  ISolutionsPageDuration,
-  LanguagesPageDuration,
-  SDVsPageDuration,
-  SkillsPageDuration,
-} from "./book-pages/durations";
-import {
+  animationSpeedMode,
   delayBetweenPageFlipping,
-  greetingDuration,
   isGreetingEnabled,
   startPage,
 } from "./config";
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
-const flippingTime = 1000;
-const remainingTime = 10689;
-//prettier-ignore
-const presentationModeDuration =
-  greetingDuration +
-  FrontCoverDuration + delayBetweenPageFlipping + flippingTime + 
-  DedicationPageDuration + delayBetweenPageFlipping + flippingTime +
-  BioPageOneFrontDuration + delayBetweenPageFlipping + flippingTime +
-  BioPageOneBackDuration + delayBetweenPageFlipping + flippingTime +
-  BioPageTwoFrontDuration + delayBetweenPageFlipping + flippingTime +
-  BioPageThreeBackDuration + delayBetweenPageFlipping + flippingTime +
-  SkillsPageDuration + delayBetweenPageFlipping + flippingTime +
-  LanguagesPageDuration + delayBetweenPageFlipping + flippingTime +
-  ISolutionsPageDuration + delayBetweenPageFlipping + flippingTime + 
-  ElinextsPageDuration + delayBetweenPageFlipping + flippingTime + 
-  CiklumsPageDuration + delayBetweenPageFlipping + flippingTime + 
-  SDVsPageDuration + delayBetweenPageFlipping + flippingTime + 
-  BackCoverDuration + delayBetweenPageFlipping + 
-  remainingTime;
-console.log(
-  "presentation:Duration",
-  `${presentationModeDuration}ms === ${presentationModeDuration / 1000}s === ${
-    presentationModeDuration / 1000 / 60
-  }m`
-);
+const flippingTime = 750;
 
 function Book() {
   const [isPresentationMode, setIsPresentationMode] =
@@ -78,40 +44,23 @@ function Book() {
   const [currentPage, setCurrentPage] = useState(startPage);
   const [focusPage, setFocusPage] = useState(0);
 
+  const [modificator, setModificator] = useState(animationSpeedMode);
+
+  useObservable(
+    AnimationSpeedService.getInstance().modificator,
+    setModificator
+  );
+
   useEffect(() => {
-    console.log("Book:useEffect", Date.now());
-    let timerId: NodeJS.Timeout;
-    if (isPresentationMode) {
-      Store.removeAllNotifications();
-      Store.addNotification({
-        title: "Presentation mode!",
-        message: "User interactions are disabled in presentation mode",
-        type: "info",
-        insert: "top",
-        container: "top-full",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: presentationModeDuration,
-          onScreen: true,
-          click: false,
-        },
-      });
-      timerId = setTimeout(() => {
-        console.log("PresentationMode => false", Date.now());
-        setIsPresentationMode(false);
-      }, presentationModeDuration);
-    }
-    return () => clearTimeout(timerId);
+    preLoadAssetsForVara();
   }, []);
 
   const flipNext = () => {
-    console.log("Book:onPageAnimationFinished", Date.now());
     if (isGreetingEnabled) {
       setTimeout(() => {
         const controller = flipBook.current.pageFlip().flipController;
         controller.flipNext();
-      }, delayBetweenPageFlipping);
+      }, delayBetweenPageFlipping * modificator);
     }
   };
 
@@ -202,15 +151,129 @@ function Book() {
     ];
   }, [currentPage, focusPage]);
 
+  useEffect(() => {
+    if (currentPage === renderedPageSides.length - 1) {
+      setIsPresentationMode(false);
+    }
+  }, [renderedPageSides, currentPage]);
+
+  const [isRewinded, toggleRewinded] = useToggle(false);
+  const [isFastForwarded, toggleFastForwarded] = useToggle(false);
+
+  const handleRewind = useCallback(() => {
+    if (isFastForwarded) {
+      toggleFastForwarded();
+    }
+
+    if (isRewinded) {
+      AnimationSpeedService.getInstance().resume();
+
+      Store.removeAllNotifications();
+      Store.addNotification({
+        title: "Rewinding",
+        message: "will be disabled starting the next page",
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-left",
+        animationIn: ["animate__animated", "animate__zoomIn"],
+        animationOut: ["animate__animated", "animate__zoomOut"],
+        dismiss: {
+          duration: 2500,
+          click: false,
+        },
+      });
+    } else {
+      AnimationSpeedService.getInstance().rewind();
+
+      Store.removeAllNotifications();
+      Store.addNotification({
+        title: "Rewinding",
+        message: "will be applied starting the next page",
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-left",
+        animationIn: ["animate__animated", "animate__zoomIn"],
+        animationOut: ["animate__animated", "animate__zoomOut"],
+        dismiss: {
+          duration: 2500,
+          click: false,
+        },
+      });
+    }
+    toggleRewinded();
+  }, [isRewinded, isFastForwarded]);
+
+  const handleFastForward = useCallback(() => {
+    if (isRewinded) {
+      toggleRewinded();
+    }
+
+    if (isFastForwarded) {
+      AnimationSpeedService.getInstance().resume();
+
+      // Store.removeAllNotifications();
+      Store.addNotification({
+        title: "Fast Forwarding",
+        message: "will be disabled starting the next page",
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__zoomIn"],
+        animationOut: ["animate__animated", "animate__zoomOut"],
+        dismiss: {
+          duration: 2500 * 1000,
+          click: false,
+        },
+      });
+    } else {
+      AnimationSpeedService.getInstance().fastForward();
+
+      // Store.removeAllNotifications();
+      Store.addNotification({
+        title: "Fast Forwarding",
+        message: "will be applied starting the next page",
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__zoomIn"],
+        animationOut: ["animate__animated", "animate__zoomOut"],
+        dismiss: {
+          duration: 2500,
+          click: false,
+        },
+      });
+    }
+    toggleFastForwarded();
+  }, [isFastForwarded, isRewinded]);
+
   const onFlip = useCallback(({ data }: { data: number }) => {
-    console.log("Book:onFlip", data, Date.now(), isPresentationMode);
+    // console.log("Book:onFlip", data, Date.now(), isPresentationMode);
     setCurrentPage(data);
   }, []);
 
   // console.log("Book", { currentPage, focusPage });
   return (
     <div className="container">
+      {isPresentationMode && <InfoLog />}
       {isPresentationMode && <div className="book-overlay"></div>}
+      {isPresentationMode && (
+        <div className="accelerator">
+          <button
+            type="button"
+            className={clsx("btn-amazon--light", isRewinded && "focused")}
+            onClick={handleRewind}
+          >
+            &#9194; Rewind
+          </button>
+          <button
+            type="button"
+            className={clsx("btn-amazon--light", isFastForwarded && "focused")}
+            onClick={handleFastForward}
+          >
+            &#9193; Fast Forward
+          </button>
+        </div>
+      )}
       <ReactNotifications />
       {isBookVisible ? (
         // @ts-ignore

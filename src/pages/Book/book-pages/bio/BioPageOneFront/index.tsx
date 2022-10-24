@@ -1,15 +1,16 @@
 import { VaraAdapter } from "adapters/VaraAdapter";
 import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import hasbikWave from "assets/gifs/hasbik-wave.gif";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services";
 import { NotebookPaper } from "common/templates/NotebookPaper";
 import { calculateAge } from "common/utils";
 import { BookPageProps } from "pages/Book/book-pages";
-import React, { RefObject, useCallback, useRef } from "react";
+import React, { RefObject, useCallback, useRef, useState } from "react";
 import { TextProperties, TextStep, VaraType } from "vara";
-import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
 
-export const animationDuration = 8 * 1000 * animationSpeedMode;
+const animationDuration = 8000;
 const age = calculateAge(new Date("10/14/1992"), new Date());
 const id = "bio-front";
 const text = `Hello my dear reader. Let's start our journey and introduce you myself. As you already may know my name is Kerim Berdimyradov.  I was born on October 14, 1992 which means that right now I'm ${age} years old :) and my childhood years were spent in sunny Turkmenistan`;
@@ -24,15 +25,23 @@ export const BioPageOneFront = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
+    const [duration, setDuration] = useState(animationDuration);
 
-    const onChange = useCallback((node: RefObject<VaraType>) => {
-      drawWorkaround(() => {
-        node?.current?.draw(id, animationDuration);
-        setTimeout(() => {
-          onAnimationFinished && onAnimationFinished();
-        }, animationDuration);
-      });
-    }, []);
+    useObservable(AnimationSpeedService.getInstance().modificator, (it) => {
+      setDuration(animationDuration * it);
+    });
+
+    const onChange = useCallback(
+      (node: RefObject<VaraType>) => {
+        drawWorkaround(() => {
+          node?.current?.draw(id, duration);
+          setTimeout(() => {
+            onAnimationFinished && onAnimationFinished();
+          }, duration);
+        });
+      },
+      [duration]
+    );
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
     if (isFocused) {

@@ -1,8 +1,10 @@
 import { Crossword, CrosswordMode } from "common/components/Crossword";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services";
 import { BasePage } from "common/templates/BasePage";
 import { BookPageProps } from "pages/Book/book-pages";
 import { crosswordAnimationSpeed } from "pages/Book/config";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 
 // prettier-ignore
@@ -37,25 +39,30 @@ const delays = [
   0, 0, 14, 0, 0, 21, 0,
 ];
 
-export const animationDuration = Math.max(...delays) * crosswordAnimationSpeed;
+const animationDuration = Math.max(...delays) * crosswordAnimationSpeed;
 
 export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
     const { isFocused, onAnimationFinished } = props;
     const mode = useRef<CrosswordMode>("animated");
+    const [duration, setDuration] = useState(animationDuration);
+
+    useObservable(AnimationSpeedService.getInstance().modificator, (it) =>
+      setDuration(animationDuration * it)
+    );
 
     useEffect(() => {
       let timer: NodeJS.Timer;
       if (isFocused && mode.current !== "shown") {
         timer = setTimeout(() => {
           mode.current = "shown";
-          onAnimationFinished && onAnimationFinished()
-        }, animationDuration);
+          onAnimationFinished && onAnimationFinished();
+        }, duration);
       }
       return () => {
         clearTimeout(timer);
       };
-    }, [isFocused]);
+    }, [isFocused, duration]);
 
     return (
       <BasePage ref={ref} number={2}>

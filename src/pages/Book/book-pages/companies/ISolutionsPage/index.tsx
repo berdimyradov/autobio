@@ -2,7 +2,6 @@ import { BasePage } from "common/templates/BasePage";
 import { ProjectsPage } from "common/templates/ProjectsPage";
 import { Project } from "common/templates/ProjectsPage/types";
 import { BookPageProps } from "pages/Book/book-pages";
-import { projectReviewDelimiter, projectReviewDuration } from "pages/Book/config";
 import React from "react";
 
 const project: Project = {
@@ -16,8 +15,6 @@ const project: Project = {
     "Got experience of working in team",
   ],
 };
-
-export const animationDuration = projectReviewDuration + projectReviewDelimiter;
 
 export const ISolutionsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {

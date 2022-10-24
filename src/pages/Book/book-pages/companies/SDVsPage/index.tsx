@@ -2,7 +2,6 @@ import { BasePage } from "common/templates/BasePage";
 import { ProjectsPage } from "common/templates/ProjectsPage";
 import { Project } from "common/templates/ProjectsPage/types";
 import { BookPageProps } from "pages/Book/book-pages";
-import { projectReviewDelimiter, projectReviewDuration } from "pages/Book/config";
 import React from "react";
 
 const projects: Project[] = [
@@ -44,9 +43,6 @@ const projects: Project[] = [
     ],
   },
 ];
-
-export const animationDuration =
-  (projectReviewDuration + projectReviewDelimiter) * projects.length;
 
 export const SDVsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {

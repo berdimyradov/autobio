@@ -2,24 +2,34 @@ import { VaraAdapter } from "adapters/VaraAdapter";
 import { drawWorkaround } from "adapters/VaraAdapter/utils";
 import { BlankPage } from "common/templates/BlankPage";
 import { BookPageProps } from "pages/Book/book-pages";
-import React, { RefObject, useCallback, useRef } from "react";
+import React, { RefObject, useCallback, useRef, useState } from "react";
 import { VaraType } from "vara";
-import { animationSpeedMode } from "pages/Book/config";
 import styles from "./styles.module.css";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services/AnimationSpeed";
 
-export const animationDuration = 1.5 * 1000 * animationSpeedMode;
+const animationDuration = 1500;
 
 export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
   (props, ref) => {
     const { isFocused, onAnimationFinished } = props;
-    const onChange = useCallback((node: RefObject<VaraType>) => {
-      drawWorkaround(() => {
-        node?.current?.draw("dedication1", animationDuration);
-        setTimeout(() => {
-          onAnimationFinished && onAnimationFinished();
-        }, animationDuration);
-      });
-    }, []);
+    const [duration, setDuration] = useState(animationDuration);
+
+    useObservable(AnimationSpeedService.getInstance().modificator, (it) => {
+      setDuration(animationDuration * it);
+    });
+
+    const onChange = useCallback(
+      (node: RefObject<VaraType>) => {
+        drawWorkaround(() => {
+          node?.current?.draw("dedication1", duration);
+          setTimeout(() => {
+            onAnimationFinished && onAnimationFinished();
+          }, duration);
+        });
+      },
+      [duration]
+    );
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
     if (isFocused) {

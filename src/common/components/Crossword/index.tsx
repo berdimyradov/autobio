@@ -1,5 +1,7 @@
-import { crosswordAnimationSpeed } from "pages/Book/config";
-import { useCallback, useMemo } from "react";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services";
+import { animationSpeedMode, crosswordAnimationSpeed } from "pages/Book/config";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./styles.module.css";
 
 export type CrosswordMode = "hidden" | "animated" | "shown";
@@ -24,6 +26,12 @@ console.log("isSafari", isSafari);
 
 export const Crossword = (props: Props) => {
   const { characters, labels, delays, mode = "hidden" } = props;
+  const [modificator, setModificator] = useState(animationSpeedMode);
+
+  useObservable(
+    AnimationSpeedService.getInstance().modificator,
+    setModificator
+  );
 
   const boardSize = useMemo(() => {
     const dimension = Math.sqrt(characters.length);
@@ -55,11 +63,13 @@ export const Crossword = (props: Props) => {
       return {
         animationName: styles.rotateCell,
         animationDuration: "0.8s",
-        animationDelay: `${delays[index] * crosswordAnimationSpeed}ms`,
+        animationDelay: `${
+          delays[index] * modificator * crosswordAnimationSpeed
+        }ms`,
         animationFillMode: "forwards",
       };
     },
-    [mode]
+    [mode, modificator]
   );
 
   return (

@@ -1,13 +1,14 @@
-import React, { RefObject, useCallback, useRef } from "react";
+import React, { RefObject, useCallback, useRef, useState } from "react";
 import { NotebookPaper } from "common/templates/NotebookPaper";
 import { TextStep, TextProperties, VaraType } from "vara";
 import { BookPageProps } from "pages/Book/book-pages";
 import { VaraAdapter } from "adapters/VaraAdapter";
 import { drawWorkaround } from "adapters/VaraAdapter/utils";
-import { animationSpeedMode } from "pages/Book/config";
 import styles from "../styles.module.css";
+import { useObservable } from "common/hooks";
+import { AnimationSpeedService } from "common/services";
 
-export const animationDuration = 4 * 1000 * animationSpeedMode;
+const animationDuration = 4000;
 const id = "bio-two-back";
 const text = `After graduating I enrolled in Belarusian State University of Informatics and Radioelectronics and a year later I received my master's degree in computer science.`;
 
@@ -21,15 +22,23 @@ export const BioPageTwoBack = React.forwardRef<HTMLDivElement, BookPageProps>(
       letterSpacing: 1.5,
       autoAnimation: false,
     };
+    const [duration, setDuration] = useState(animationDuration);
 
-    const onChange = useCallback((node: RefObject<VaraType>) => {
-      drawWorkaround(() => {
-        node?.current?.draw(id, animationDuration);
-        setTimeout(() => {
-          onAnimationFinished && onAnimationFinished();
-        }, animationDuration);
-      });
-    }, []);
+    useObservable(AnimationSpeedService.getInstance().modificator, (it) => {
+      setDuration(animationDuration * it);
+    });
+
+    const onChange = useCallback(
+      (node: RefObject<VaraType>) => {
+        drawWorkaround(() => {
+          node?.current?.draw(id, duration);
+          setTimeout(() => {
+            onAnimationFinished && onAnimationFinished();
+          }, duration);
+        });
+      },
+      [duration]
+    );
 
     const isVaraAlreadyRendered = useRef<boolean>(false);
     if (isFocused) {
