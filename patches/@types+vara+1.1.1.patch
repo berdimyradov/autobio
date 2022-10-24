@@ -1,0 +1,31 @@
+diff --git a/node_modules/@types/vara/index.d.ts b/node_modules/@types/vara/index.d.ts
+index 4a0c894..d76fea1 100755
+--- a/node_modules/@types/vara/index.d.ts
++++ b/node_modules/@types/vara/index.d.ts
+@@ -12,7 +12,7 @@
+  * however they will not override the options set above.
+  * They will work as secondary options.
+  */
+-interface TextProperties {
++export interface TextProperties {
+     /**
+      * Size of the text
+      */
+@@ -47,7 +47,7 @@ interface TextProperties {
+     letterSpacing?: number | undefined;
+ }
+ 
+-interface TextStep extends TextProperties {
++export interface TextStep extends TextProperties {
+     /**
+      * Text to be shown
+      */
+@@ -91,7 +91,7 @@ interface TextElements {
+     container: SVGGElement;
+ }
+ 
+-declare class VaraType {
++export declare class VaraType {
+     constructor(queryDom: string,
+         fontJSONSource: string,
+         textStep: TextStep[],
