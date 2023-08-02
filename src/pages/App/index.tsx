@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import meImage from "./assets/me.png";
+import meImage from "../../assets/me.png";
 import styles from "./App.module.css";
 
 function App() {

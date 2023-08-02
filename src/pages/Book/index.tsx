@@ -5,9 +5,11 @@ import { useObservable, useToggle } from "common/hooks";
 import { AnimationSpeedService } from "common/services/AnimationSpeed";
 import { BlankPage } from "common/templates/BlankPage";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ReactNotifications, Store } from "react-notifications-component";
+import { ReactNotifications } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import HTMLFlipBook from "react-pageflip";
+import { BehaviorSubject } from "rxjs";
+import { delay, filter, take } from "rxjs/operators";
 import {
   BackCover,
   BioPageOneBack,
@@ -37,14 +39,15 @@ import "./styles.css";
 const flippingTime = 750;
 
 function Book() {
-  const [isPresentationMode, setIsPresentationMode] =
-    useState(isGreetingEnabled);
+  const isPresentationMode$ = new BehaviorSubject<boolean>(isGreetingEnabled);
+
   const [isBookVisible, setIsBookVisible] = useState(!isGreetingEnabled);
   const flipBook = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(startPage);
   const [focusPage, setFocusPage] = useState(0);
 
   const [modificator, setModificator] = useState(animationSpeedMode);
+  const [isPaused, togglePaused] = useToggle(false);
 
   useObservable(
     AnimationSpeedService.getInstance().modificator,
@@ -55,14 +58,19 @@ function Book() {
     preLoadAssetsForVara();
   }, []);
 
-  const flipNext = () => {
-    if (isGreetingEnabled) {
-      setTimeout(() => {
+  const flipNext = useCallback(() => {
+    console.log("Book:FlipNext", { isGreetingEnabled });
+    isPresentationMode$
+      .pipe(
+        filter((v) => !!v && isGreetingEnabled),
+        delay(delayBetweenPageFlipping * modificator),
+        take(1)
+      )
+      .subscribe(() => {
         const controller = flipBook.current.pageFlip().flipController;
         controller.flipNext();
-      }, delayBetweenPageFlipping * modificator);
-    }
-  };
+      });
+  }, []);
 
   const renderedPageSides = useMemo(() => {
     return [
@@ -153,127 +161,34 @@ function Book() {
 
   useEffect(() => {
     if (currentPage === renderedPageSides.length - 1) {
-      setIsPresentationMode(false);
+      isPresentationMode$.next(false);
     }
   }, [renderedPageSides, currentPage]);
 
-  const [isRewinded, toggleRewinded] = useToggle(false);
-  const [isFastForwarded, toggleFastForwarded] = useToggle(false);
-
-  const handleRewind = useCallback(() => {
-    if (isFastForwarded) {
-      toggleFastForwarded();
-    }
-
-    if (isRewinded) {
-      AnimationSpeedService.getInstance().resume();
-
-      Store.removeAllNotifications();
-      Store.addNotification({
-        title: "Rewinding",
-        message: "will be disabled starting the next page",
-        type: "warning",
-        insert: "bottom",
-        container: "bottom-left",
-        animationIn: ["animate__animated", "animate__zoomIn"],
-        animationOut: ["animate__animated", "animate__zoomOut"],
-        dismiss: {
-          duration: 2500,
-          click: false,
-        },
-      });
-    } else {
-      AnimationSpeedService.getInstance().rewind();
-
-      Store.removeAllNotifications();
-      Store.addNotification({
-        title: "Rewinding",
-        message: "will be applied starting the next page",
-        type: "warning",
-        insert: "bottom",
-        container: "bottom-left",
-        animationIn: ["animate__animated", "animate__zoomIn"],
-        animationOut: ["animate__animated", "animate__zoomOut"],
-        dismiss: {
-          duration: 2500,
-          click: false,
-        },
-      });
-    }
-    toggleRewinded();
-  }, [isRewinded, isFastForwarded]);
-
-  const handleFastForward = useCallback(() => {
-    if (isRewinded) {
-      toggleRewinded();
-    }
-
-    if (isFastForwarded) {
-      AnimationSpeedService.getInstance().resume();
-
-      // Store.removeAllNotifications();
-      Store.addNotification({
-        title: "Fast Forwarding",
-        message: "will be disabled starting the next page",
-        type: "warning",
-        insert: "bottom",
-        container: "bottom-right",
-        animationIn: ["animate__animated", "animate__zoomIn"],
-        animationOut: ["animate__animated", "animate__zoomOut"],
-        dismiss: {
-          duration: 2500 * 1000,
-          click: false,
-        },
-      });
-    } else {
-      AnimationSpeedService.getInstance().fastForward();
-
-      // Store.removeAllNotifications();
-      Store.addNotification({
-        title: "Fast Forwarding",
-        message: "will be applied starting the next page",
-        type: "warning",
-        insert: "bottom",
-        container: "bottom-right",
-        animationIn: ["animate__animated", "animate__zoomIn"],
-        animationOut: ["animate__animated", "animate__zoomOut"],
-        dismiss: {
-          duration: 2500,
-          click: false,
-        },
-      });
-    }
-    toggleFastForwarded();
-  }, [isFastForwarded, isRewinded]);
+  const handlePause = useCallback(() => {
+    console.log("Book:handlePause", isPaused);
+    isPresentationMode$.next(isPaused);
+    togglePaused();
+  }, [isPaused]);
 
   const onFlip = useCallback(({ data }: { data: number }) => {
-    // console.log("Book:onFlip", data, Date.now(), isPresentationMode);
     setCurrentPage(data);
   }, []);
 
-  // console.log("Book", { currentPage, focusPage });
+  // console.log("Book", { isPaused });
   return (
     <div className="container">
-      {isPresentationMode && <InfoLog />}
-      {isPresentationMode && <div className="book-overlay"></div>}
-      {isPresentationMode && (
-        <div className="accelerator">
-          <button
-            type="button"
-            className={clsx("btn-amazon--light", isRewinded && "focused")}
-            onClick={handleRewind}
-          >
-            &#9194; Rewind
-          </button>
-          <button
-            type="button"
-            className={clsx("btn-amazon--light", isFastForwarded && "focused")}
-            onClick={handleFastForward}
-          >
-            &#9193; Fast Forward
-          </button>
-        </div>
-      )}
+      {!isPaused && <InfoLog />}
+      {!isPaused && <div className="book-overlay"></div>}
+      <div className="accelerator">
+        <button
+          type="button"
+          className={clsx("btn-amazon--light", isPaused && "focused")}
+          onClick={handlePause}
+        >
+          &#x23EF; Pause
+        </button>
+      </div>
       <ReactNotifications />
       {isBookVisible ? (
         // @ts-ignore

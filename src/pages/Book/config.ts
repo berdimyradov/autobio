@@ -16,8 +16,17 @@
 
 // PROD
 export const isGreetingEnabled = true;
-export const greetingDuration: number = 8500;
-export const animationSpeedMode = 1; // from 0 to 1
+// export const greetingDuration: number = 8500;
+export const greetingDuration: number = 1500;
+// export const animationSpeedMode = 1; // from 0 to 1
+export const animationSpeedMode = 0.25; // from 0 to 1
 export const startPage = 0;
 export const delayBetweenPageFlipping = 1000;
 export const crosswordAnimationSpeed = 300;
+
+
+
+
+// TODO:
+// - Play and pause PresMode
+// - QR/linkTree code available all the time
