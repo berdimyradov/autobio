@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles.module.css";
 
 type Props = {
-  children?: JSX.Element;
+  children?: React.ReactNode;
 };
 
 export const NotebookPaper = React.forwardRef<HTMLDivElement, Props>(
