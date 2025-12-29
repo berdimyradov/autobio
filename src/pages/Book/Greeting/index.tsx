@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import { FiniteAnimation } from "pages/Book/book-pages";
-import { greetingDuration } from "pages/Book/config";
+import { FiniteAnimation } from "entities/book";
+import { greetingDuration } from "pages/book/config";
 import { useEffect } from "react";
 import styles from "./styles.module.css";
 

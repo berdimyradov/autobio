@@ -1,9 +1,9 @@
-import { preLoadAssetsForVara } from "adapters/VaraAdapter/utils";
+import { preLoadAssetsForVara } from "shared/ui/vara-adapter/utils";
 import clsx from "clsx";
-import { InfoLog } from "common/components/InfoLog";
-import { useObservable, useToggle } from "common/hooks";
-import { AnimationSpeedService } from "common/services/AnimationSpeed";
-import { BlankPage } from "common/templates/BlankPage";
+import { InfoLog } from "shared/ui/components/InfoLog";
+import { useObservable, useToggle } from "shared/lib/hooks";
+import { AnimationSpeedService } from "shared/lib/services/AnimationSpeed";
+import { BlankPage } from "shared/ui/templates/BlankPage";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
@@ -26,7 +26,7 @@ import {
   LanguagesPage,
   SDVsPage,
   SkillsPage,
-} from "./book-pages";
+} from "entities/book";
 import {
   animationSpeedMode,
   delayBetweenPageFlipping,
