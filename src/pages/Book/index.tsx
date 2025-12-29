@@ -36,7 +36,7 @@ import {
 import { Greeting } from "./Greeting";
 import "./styles.css";
 
-const flippingTime = 750;
+const flippingTime = 850;
 
 function Book() {
   const isPresentationMode$ = new BehaviorSubject<boolean>(isGreetingEnabled);

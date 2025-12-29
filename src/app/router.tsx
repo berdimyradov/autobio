@@ -3,7 +3,7 @@ import './styles/App.css'
 import Book from 'pages/book'
 import HeartPulse from 'pages/heart-pulse'
 
-function App() {
+function Router() {
 
   return (
     <BrowserRouter>
@@ -15,4 +15,4 @@ function App() {
   )
 }
 
-export default App
+export default Router
