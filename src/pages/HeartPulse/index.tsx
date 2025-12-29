@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import meImage from "../../assets/me.png";
-import styles from "./App.module.css";
+import styles from "./HeartPulse.module.css";
 
-function App() {
+function HeartPulse() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+export default HeartPulse;

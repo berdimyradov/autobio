@@ -32,7 +32,7 @@ export const BioPageOneFront = React.forwardRef<HTMLDivElement, BookPageProps>(
     });
 
     const onChange = useCallback(
-      (node: RefObject<VaraType>) => {
+      (node: RefObject<VaraType | null>) => {
         drawWorkaround(() => {
           node?.current?.draw(id, duration);
           setTimeout(() => {

@@ -20,7 +20,7 @@ export const DedicationPage = React.forwardRef<HTMLDivElement, BookPageProps>(
     });
 
     const onChange = useCallback(
-      (node: RefObject<VaraType>) => {
+      (node: RefObject<VaraType | null>) => {
         drawWorkaround(() => {
           node?.current?.draw("dedication1", duration);
           setTimeout(() => {

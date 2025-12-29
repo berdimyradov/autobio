@@ -13,7 +13,7 @@ export const FrontCover = React.forwardRef<HTMLDivElement, BookPageProps>(
     const isAlreadyAnimated = useRef<boolean>(false);
 
     useEffect(() => {
-      let timer: NodeJS.Timeout;
+      let timer: ReturnType<typeof setTimeout>;
       if (isFocused && !isAlreadyAnimated.current) {
         timer = setTimeout(() => {
           onAnimationFinished && onAnimationFinished();

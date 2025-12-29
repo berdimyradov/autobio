@@ -19,7 +19,7 @@ const characters = [
 ];
 // prettier-ignore
 const labels = [
-  '1',  null, '2' , null, null, '3' , null,
+  '1', null, '2', null, null, '3', null,
   null, null, null, null, null, null, null,
   null, null, null, null, null, null, null,
   null, null, null, null, null, null, null,
@@ -29,11 +29,11 @@ const labels = [
 ];
 // prettier-ignore
 const delays = [
-  1, 2, 3,  4, 5,  6, 7, 
-  0, 0, 8,  0, 0, 15, 0, 
-  0, 0, 9,  0, 0, 16, 0,
+  1, 2, 3, 4, 5, 6, 7,
+  0, 0, 8, 0, 0, 15, 0,
+  0, 0, 9, 0, 0, 16, 0,
   0, 0, 10, 0, 0, 17, 0,
-  0, 0, 11, 0, 0, 18, 0, 
+  0, 0, 11, 0, 0, 18, 0,
   0, 0, 12, 0, 0, 19, 0,
   0, 0, 13, 0, 0, 20, 0,
   0, 0, 14, 0, 0, 21, 0,
@@ -52,7 +52,7 @@ export const LanguagesPage = React.forwardRef<HTMLDivElement, BookPageProps>(
     );
 
     useEffect(() => {
-      let timer: NodeJS.Timer;
+      let timer: ReturnType<typeof setTimeout>;
       if (isFocused && mode.current !== "shown") {
         timer = setTimeout(() => {
           mode.current = "shown";

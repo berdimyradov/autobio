@@ -67,7 +67,7 @@ export const SkillsPage = React.forwardRef<HTMLDivElement, BookPageProps>(
     );
 
     useEffect(() => {
-      let timer: NodeJS.Timer;
+      let timer: ReturnType<typeof setTimeout>;
       if (isFocused && modeRef.current !== "shown") {
         modeRef.current = "animated";
         setMode("animated");

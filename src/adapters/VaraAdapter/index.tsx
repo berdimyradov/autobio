@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import { FONTS } from "./utils";
 
 type Props = {
-  onVaraRef: (ref: RefObject<VaraType>) => void;
+  onVaraRef: (ref: RefObject<VaraType | null>) => void;
   textSteps: TextStep[];
   config?: TextProperties;
 };

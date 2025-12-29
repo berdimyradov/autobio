@@ -1,57 +1,39 @@
 {
-  "name": "autobio",
-  "version": "0.1.0",
+  "name": "autobio-2",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.2.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.1",
-    "@types/node": "^16.11.36",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "clsx": "^1.2.1",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0",
-    "react-icons": "^4.4.0",
+    "clsx": "^2.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-notifications-component": "^4.0.1",
     "react-pageflip": "^2.0.3",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "rxjs": "^7.5.7",
-    "typescript": "^4.7.2",
-    "vara": "^1.4.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postinstall": "patch-package"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-router-dom": "^7.11.0",
+    "rxjs": "^7.8.2",
+    "vara": "^1.4.1"
   },
   "devDependencies": {
-    "@types/vara": "^1.1.1",
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0"
+    "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4"
   }
 }

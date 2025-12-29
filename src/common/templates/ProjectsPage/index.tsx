@@ -37,8 +37,8 @@ export const ProjectsPage = (props: Props) => {
   };
 
   useEffect(() => {
-    let timerId: NodeJS.Timer;
-    let intervalId: NodeJS.Timer;
+    let timerId: ReturnType<typeof setTimeout>;
+    let intervalId: ReturnType<typeof setInterval>;
 
     if (isReviewing) {
       timerId = setTimeout(() => {
@@ -73,7 +73,7 @@ export const ProjectsPage = (props: Props) => {
           {projects.map((_, index) => (
             <button
               key={`project-${index}`}
-              onClick={(e) => setCurrentProject(index)}
+              onClick={() => setCurrentProject(index)}
               className={clsx(
                 "btn-amazon--light",
                 isReviewing && currentProject === index && "focused"

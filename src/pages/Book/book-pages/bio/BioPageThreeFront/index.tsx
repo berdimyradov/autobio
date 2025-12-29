@@ -4,14 +4,12 @@ import hasbikMoney from "assets/gifs/hasbik-money-1.gif";
 import { useObservable } from "common/hooks";
 import { AnimationSpeedService } from "common/services";
 import { NotebookPaper } from "common/templates/NotebookPaper";
-import { calculateAge } from "common/utils";
 import { BookPageProps } from "pages/Book/book-pages";
 import React, { RefObject, useCallback, useRef, useState } from "react";
 import { TextProperties, TextStep, VaraType } from "vara";
 import styles from "../styles.module.css";
 
 const animationDuration = 8000;
-const age = calculateAge(new Date("10/14/1992"), new Date());
 const id = "bio-three-front";
 const text = `At the same time while I was studying for my master's degree I started my career as a software developer.`;
 
@@ -34,7 +32,7 @@ export const BioPageThreeFront = React.forwardRef<
   });
 
   const onChange = useCallback(
-    (node: RefObject<VaraType>) => {
+    (node: RefObject<VaraType | null>) => {
       drawWorkaround(() => {
         node?.current?.draw(id, duration);
         setTimeout(() => {
